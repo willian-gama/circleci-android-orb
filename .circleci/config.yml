@@ -10,8 +10,6 @@ filters: &filters
 workflows:
   pack:
     jobs:
-      - orb-tools/pack:
-          filters: *filters
       - orb-tools/continue:
           pipeline_number: << pipeline.number >>
           vcs_type: github
