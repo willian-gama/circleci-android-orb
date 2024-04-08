@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ -f "$FILE_NAME" ]; then
   rm "$FILE_NAME"

@@ -1,6 +1,6 @@
 description: Initial setup to download dependencies
 
-executor: android-executor
+executor: android_executor
 
 parameters:
   with_screenshot_tests:
@@ -10,13 +10,13 @@ parameters:
 steps:
   - checkout
   - run:
-      name: Setup config and scripts
-      command: git clone -b main --depth=1 git@github.com:KitmanLabs/Android-Fastlane.git ci
+      name: Clone fastlane config
+      command: <<include(scripts/clone_fastlane_config)>>
   - run:
       name: Generate user.properties
-      command: <<include(scripts/generate-user-properties.sh)>>
-  - restore-gradle-cache
-  - restore-gems-cache
+      command: <<include(scripts/generate_user_properties.sh)>>
+  - restore_gradle_cache
+  - restore_gems_cache
   - run:
       name: Download android dependencies
       command: ./gradlew androidDependencies
