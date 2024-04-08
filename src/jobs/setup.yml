@@ -22,9 +22,7 @@ steps:
       command: ./gradlew androidDependencies
   - run:
       name: Download ruby dependencies
-      command: |
-        gem install bundler
-        bundle check || bundle install --path vendor/bundle
+      command: <<include(scripts/download_ruby_dependencies.sh)>>
   - save_cache:
       name: Saving gradle cache
       key: gradle-{{ checksum "gradle_checksum.txt" }}
