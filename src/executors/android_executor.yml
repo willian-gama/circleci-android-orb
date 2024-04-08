@@ -1,6 +1,0 @@
-description: Android executor using official android orb.
-
-android:
-  name: android/android-machine
-  resource-class: large
-  tag: default
