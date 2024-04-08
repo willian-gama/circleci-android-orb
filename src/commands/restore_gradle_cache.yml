@@ -1,6 +1,0 @@
-description: Restore gradle cache to speed up the build process.
-
-steps:
-  restore_cache:
-    name: Restore gradle cache
-    key: gradle-{{ checksum "gradle_checksum.txt" }}
