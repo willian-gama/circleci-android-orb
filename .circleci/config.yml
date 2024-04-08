@@ -1,7 +1,5 @@
 version: 2.1
-
 setup: true
-
 orbs:
   orb-tools: circleci/orb-tools@12.0
   shellcheck: circleci/shellcheck@3.1
@@ -21,10 +19,9 @@ workflows:
           filters: *filters
       - shellcheck/check:
           filters: *filters
-      # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
+          orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github
-          orb_name: willian-gama/android-ci
-          requires: [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
+          requires: [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check, bats/run]
           filters: *filters
