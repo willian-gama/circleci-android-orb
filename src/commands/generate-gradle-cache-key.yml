@@ -1,7 +1,8 @@
+description: Determine if the .build gradle files have been updated to enforce dowload dependencies again.
+
 steps:
   run:
     name: Generate gradle cache key
-    description: Determine if the .build gradle files have been updated to enforce dowload dependencies again.
     environment:
       FILE_NAME: gradle_checksum.txt
     command: <<include(scripts/generate-gradle-checksum.sh)>>
