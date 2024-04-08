@@ -10,8 +10,6 @@ description: >
   - Upload reports to Sonar Cloud.
   - Deployment to Google Play
 
-
-
 # This information will be displayed in the orb registry.
 display:
   home_url: "https://github.com/willian-gama/circleci-android-orb"
