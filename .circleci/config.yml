@@ -28,7 +28,7 @@ workflows:
           orb_name: willian-gama/android-ci
           requires: [
             orb-tools/lint,
-            orb-tools/pack,
+            # orb-tools/pack,
             orb-tools/review,
             shellcheck/check
           ]
