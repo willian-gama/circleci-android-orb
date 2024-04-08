@@ -1,20 +1,11 @@
 version: 2.1
 
 description: >
-  Automate tasks to be reused them in different apps or libraries:
+  This orb contains the logic to run the unit tests, package deployments, and test flights for all projects.
+# What will your orb allow users to accomplish?
+# Descriptions should be short, simple, and informative.
 
-  - Run unit tests.
-  - Run ui tests.
-  - Run screenshot tests.
-  - Run code coverage.
-  - Upload reports to Sonar Cloud.
-  - Deployment to Google Play
-
-# This information will be displayed in the orb registry.
+# This information will be displayed in the orb registry and is not mandatory.
 display:
   home_url: "https://github.com/willian-gama/circleci-android-orb"
   source_url: "https://github.com/willian-gama/circleci-android-orb"
-
-orbs:
-  android: circleci/android@2.1.2
-  slack: circleci/slack@4.1
