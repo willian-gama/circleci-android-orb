@@ -1,7 +1,16 @@
 version: 2.1
 
 description: >
-  Run unit tests, ui tests and code coverage
+  Automate tasks to be reused them in different apps or libraries:
+
+  - Run unit tests.
+  - Run ui tests.
+  - Run screenshot tests.
+  - Run code coverage.
+  - Upload reports to Sonar Cloud.
+  - Deployment to Google Play
+
+
 
 # This information will be displayed in the orb registry.
 display:
