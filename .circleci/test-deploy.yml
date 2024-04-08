@@ -25,8 +25,10 @@ jobs:
   command-test:
     executor: android-executor
     steps:
+      - checkout
       - willian-gama/setup
-      - willian-gama/unit_tests
+      - willian-gama/unit_tests:
+          run_screenshot_tests: true
 
 workflows:
   test-deploy:

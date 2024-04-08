@@ -2,11 +2,6 @@ description: Initial setup to download dependencies
 
 executor: android_executor
 
-parameters:
-  with_screenshot_tests:
-    type: boolean
-    description: Determine if screenshot tests should be tested alongside unit tests
-
 steps:
   - checkout
   - run:

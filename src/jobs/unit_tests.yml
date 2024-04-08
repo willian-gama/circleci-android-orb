@@ -3,7 +3,7 @@ description: Run unit tests
 executor: android_executor
 
 parameters:
-  with_screenshot_tests:
+  run_screenshot_tests:
     type: boolean
     description: Determine if screenshot tests should be tested alongside unit tests
 
@@ -13,7 +13,7 @@ steps:
   - restore_gradle_cache
   - android/restore_build_cache
   - when:
-      condition: << parameters.with_screenshot_tests >>
+      condition: << parameters.run_screenshot_tests >>
       steps:
         - run:
             name: Run unit and screenshot tests
@@ -26,7 +26,7 @@ steps:
             command: ./gradlew testFullDebugUnitTest
   - persist_to_workspace:
       root: ~/
-      paths: "src/**/build/outputs/unit_test_code_coverage"
+      paths: "src/**/build/outputs/run_screenshot_tests"
   - run:
       name: Save unit test results
       command: <<include(scripts/save_unit_tests_results.sh)>>
