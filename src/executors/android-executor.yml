@@ -1,4 +1,4 @@
-description: Android executor
+description: Android executor using official android orb.
 
 android:
   name: android/android-machine
