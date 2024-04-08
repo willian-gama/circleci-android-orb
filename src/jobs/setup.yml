@@ -1,0 +1,42 @@
+description: Initial setup to download dependencies
+
+executor: android-executor
+
+parameters:
+  with_screenshot_tests:
+    type: boolean
+    description: Determine if screenshot tests should be tested alongside unit tests
+
+steps:
+  - checkout
+  - run:
+      name: Setup config and scripts
+      command: git clone -b main --depth=1 git@github.com:KitmanLabs/Android-Fastlane.git ci
+  - run:
+      name: Generate user.properties
+      command: <<include(scripts/generate-user-properties.sh)>>
+  - restore-gradle-cache
+  - restore-gems-cache
+  - run:
+      name: Download android dependencies
+      command: ./gradlew androidDependencies
+  - run:
+      name: Download ruby dependencies
+      command: |
+        gem install bundler
+        bundle check || bundle install --path vendor/bundle
+  - save_cache:
+      name: Saving gradle cache
+      key: gradle-{{ checksum "gradle_checksum.txt" }}
+      paths:
+        - ~/.gradle
+        - ~/.m2
+  - save_cache:
+      name: Saving gems cache
+      key: gems-{{ checksum "Gemfile.lock" }}
+      paths:
+        - vendor/bundle
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - src

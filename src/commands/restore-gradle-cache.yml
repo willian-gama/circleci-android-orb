@@ -1,0 +1,4 @@
+steps:
+  restore_cache:
+    name: Restore gradle cache
+    key: gradle-{{ checksum "gradle_checksum.txt" }}

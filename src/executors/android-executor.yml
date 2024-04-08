@@ -1,0 +1,6 @@
+description: Android executor
+
+android:
+  name: android/android-machine
+  resource-class: large
+  tag: default

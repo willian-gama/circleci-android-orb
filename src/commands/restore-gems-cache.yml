@@ -1,0 +1,4 @@
+steps:
+  restore_cache:
+    name: Restore gems cache
+    key: gems-{{ checksum "Gemfile.lock" }}

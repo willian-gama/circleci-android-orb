@@ -1,0 +1,37 @@
+description: Run unit tests
+
+executor: android-executor
+
+parameters:
+  with_screenshot_tests:
+    type: boolean
+    description: Determine if screenshot tests should be tested alongside unit tests
+
+steps:
+  - load-workspace
+  - generate-gradle-cache-key
+  - restore-gradle-cache
+  - android/restore-build-cache
+  - when:
+      condition: << parameters.with_screenshot_tests >>
+      steps:
+        - run:
+            name: Run unit and screenshot tests
+            command: ./gradlew verifyPaparazziFullDebug # It also runs unit tests: https://github.com/cashapp/paparazzi/issues/1161
+  - unless:
+      condition: << parameters.with_screenshot_tests >>
+      steps:
+        - run:
+            name: Run unit tests only
+            command: ./gradlew testFullDebugUnitTest
+  - persist_to_workspace:
+      root: ~/
+      paths: "src/**/build/outputs/unit_test_code_coverage"
+  - run:
+      name: Save unit test results
+      command: |
+        mkdir -p ~/test-results/unit-tests/
+        find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/unit-tests/ \;
+      when: always
+  - store_test_results:
+      path: ~/test-results/unit-tests
