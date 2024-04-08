@@ -12,10 +12,9 @@ workflows:
     jobs:
       - orb-tools/pack:
           filters: *filters
-
       - orb-tools/continue:
           pipeline_number: << pipeline.number >>
-          vcs_type: << pipeline.project.type >>
+          vcs_type: << pipeline.type >>
           orb_name: willian-gama/android-ci
           requires: [orb-tools/pack]
           filters: *filters
