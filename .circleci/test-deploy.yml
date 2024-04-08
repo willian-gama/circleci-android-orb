@@ -23,12 +23,11 @@ jobs:
   # Create jobs to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
-    docker:
-      - image: cimg/base:current
+    executor: android-executor
     steps:
-      - checkout
-      # Run your orb's commands to validate them.
-      - <orb-name>/greet
+      - willian-gama/setup
+      - willian-gama/unit-tests
+
 workflows:
   test-deploy:
     jobs:
