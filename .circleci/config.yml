@@ -17,7 +17,7 @@ workflows:
           filters: *filters
           pre-steps:
             - run:
-                command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> src
+                command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
           checkout: false
       - orb-tools/review:
           filters: *filters
