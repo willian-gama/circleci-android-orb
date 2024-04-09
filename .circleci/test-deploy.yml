@@ -28,7 +28,7 @@ jobs:
   # Create jobs to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
-    executor: android-executor
+    executor: android_executor
     steps:
       - *checkout
       # - willian-gama/setup
