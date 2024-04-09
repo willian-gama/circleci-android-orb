@@ -61,3 +61,4 @@ workflows:
             - command-tests
           context: orb-publishing
           filters: *release-filters
+          enable_pr_comment: false
