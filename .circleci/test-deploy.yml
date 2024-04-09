@@ -32,7 +32,7 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
-      - willian-gama/setup
+      - willian-gama/generate_gradle_cache_key
       # - willian-gama/code_linting:
       #     build_variant: debug
       # - willian-gama/unit_tests:
