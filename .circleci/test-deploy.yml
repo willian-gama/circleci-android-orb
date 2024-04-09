@@ -20,8 +20,8 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 # Custom checkout
-checkout: &checkout
-  git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
+# checkout: &checkout
+#   git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
 
 jobs:
   # Create jobs to test the commands of your orbs.
@@ -44,9 +44,9 @@ workflows:
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
           filters: *release-filters
-          pre-steps:
-            - run:
-                command: *checkout
+          # pre-steps:
+          #   - run:
+          #       command: *checkout
       - orb-tools/publish:
           orb_name: willian-gama/android-ci
           vcs_type: github
