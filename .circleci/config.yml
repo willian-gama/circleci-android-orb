@@ -8,6 +8,10 @@ filters: &filters
   tags:
     only: /.*/
 
+# Custom checkout
+checkout: &checkout
+  git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
+
 workflows:
   lint-pack:
     jobs:
@@ -18,16 +22,16 @@ workflows:
           filters: *filters
           pre-steps:
             - run:
-                command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
+                command: *checkout
       - orb-tools/review:
           filters: *filters
       - shellcheck/check:
           filters: *filters
       - orb-tools/continue:
           checkout: false
-          pre-steps:
-            - run:
-                command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
+          # pre-steps:
+          #   - run:
+          #       command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github

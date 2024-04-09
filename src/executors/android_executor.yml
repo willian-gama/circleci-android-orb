@@ -1,10 +1,10 @@
 description: >
-  This is a sample executor using Docker and Node. If you want to provide a custom environment in your orb, insert your image here.
-  If you do not require an executor, you can simply delete this directory.
+  Android executor to run jobs
 
 parameters:
   resource_class:
     type: string
+    description: Define resource class. It can be find in https://circleci.com/docs/configuration-reference/#linuxvm-execution-environment
     default: large
 
 machine:
