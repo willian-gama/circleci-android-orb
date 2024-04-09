@@ -22,12 +22,7 @@ release-filters: &release-filters
 checkout: &checkout
   - run:
       name: Checkout
-      command: |
-        if [ -z "$CIRCLE_BRANCH" ]
-          git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
-        then
-          git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
-        fi
+      command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
 
 jobs:
   # Create jobs to test the commands of your orbs.
