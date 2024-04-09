@@ -20,7 +20,6 @@ workflows:
       - shellcheck/check:
           filters: *filters
       - orb-tools/continue:
-          orb-name: android-ci
           pipeline-number: << pipeline.number >>
           vcs-type: github
           requires: [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
