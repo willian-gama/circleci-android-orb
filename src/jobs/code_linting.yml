@@ -1,0 +1,27 @@
+description: Run code linting tools such as ktlint, detekt and android lint
+
+executor: android_executor
+
+parameters:
+  build_variant:
+    default: "debug"
+    description: The target Operating System for the heroku binary. Must be one of "linux", "darwin", "win32".
+    type: enum
+    enum: ["debug", "fullDebug"]
+
+steps:
+  - load_workspace
+  - generate_gradle_cache_key
+  - restore_gradle_cache
+  - android/restore-build-cache
+  - run:
+      name: Run code linting tools
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/run_code_linting_tools.sh)>>
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - "src/**/build/reports/ktlint"
+        - "src/**/build/reports/detekt/detekt.xml"
+        - "src/**/build/reports/lint-results-*debug.xml"

@@ -1,3 +1,9 @@
+# Pack and validate locally
+
+1. cd <root project>
+2. circleci orb pack ./src > orb.yml
+3. circleci config validate orb.yml
+
 # Orb Template
 
 <!---
