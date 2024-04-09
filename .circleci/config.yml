@@ -15,10 +15,10 @@ checkout: &checkout
   - run:
       name: Checkout
       command: |
-        if [ -z "$CIRCLE_BRANCH" ] then
-          git clone << pipeline.trigger_parameters.github_app.repo_url >> .
-        then
-          git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
+        if [ -z "$CIRCLE_BRANCH" ]; then
+            git clone << pipeline.trigger_parameters.github_app.repo_url >> .
+        else
+            git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
         fi
 
 workflows:
