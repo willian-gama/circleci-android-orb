@@ -11,7 +11,7 @@ steps:
   - load_workspace
   - generate_gradle_cache_key
   - restore_gradle_cache
-  - android/restore_build_cache
+  - android/restore-build-cache
   - when:
       condition: << parameters.run_screenshot_tests >>
       steps:
