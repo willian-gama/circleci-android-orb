@@ -27,6 +27,7 @@ jobs:
     steps:
       - checkout
       - willian-gama/setup
+      - willian-gama/code_linting
       - willian-gama/unit_tests:
           run_screenshot_tests: true
 

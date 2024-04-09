@@ -1,0 +1,18 @@
+description: Run code linting tools such as ktlint, detekt and android lint
+
+executor: android_executor
+
+steps:
+  - load_workspace
+  - generate_gradle_cache_key
+  - restore_gradle_cache
+  - android/restore-build-cache
+  - run:
+      name: Run code linting tools
+      command: ./gradlew ktlintCheck detektFullDebug detektFullDebugUnitTest detektFullDebugAndroidTest lintFullDebug
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - "src/**/build/reports/ktlint"
+        - "src/**/build/reports/detekt/detekt.xml"
+        - "src/**/build/reports/lint-results-fullDebug.xml"
