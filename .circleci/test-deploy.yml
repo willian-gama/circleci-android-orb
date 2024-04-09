@@ -22,7 +22,7 @@ release-filters: &release-filters
 checkout: &checkout
   - run:
       name: Checkout
-      command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> . # trigger_parameters.github_app.repo_url is available in Pipeline values - https://circleci.com/docs/variables/#pipeline-values
+      command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
 
 jobs:
   # Create jobs to test the commands of your orbs.
@@ -31,8 +31,8 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
-      - *checkout
-      - willian-gama/load_workspace
+      - checkout
+      # - willian-gama/load_workspace
 
 workflows:
   test-deploy:
