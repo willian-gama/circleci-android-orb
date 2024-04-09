@@ -9,7 +9,7 @@ steps:
   - android/restore-build-cache
   - run:
       name: Run code linting tools
-      command: ./gradlew ktlintCheck detektFullDebug detektFullDebugUnitTest detektFullDebugAndroidTest lintFullDebug
+      command: <<include(scripts/run_code_linting_tools.sh)>>
   - persist_to_workspace:
       root: ~/
       paths:
