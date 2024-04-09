@@ -46,6 +46,9 @@ workflows:
           filters: *filters
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
+          pre-steps:
+            - *checkout
+          checkout: false
           filters: *release-filters
       - orb-tools/publish:
           orb_name: willian-gama/android-ci

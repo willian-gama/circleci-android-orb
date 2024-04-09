@@ -21,18 +21,18 @@ workflows:
       - orb-tools/lint:
           filters: *filters
       - orb-tools/pack:
-          checkout: false
-          filters: *filters
           pre-steps:
             - *checkout
+          checkout: false
+          filters: *filters
       - orb-tools/review:
           filters: *filters
       - shellcheck/check:
           filters: *filters
       - orb-tools/continue:
-          checkout: false
           pre-steps:
             - *checkout
+          checkout: false
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github
