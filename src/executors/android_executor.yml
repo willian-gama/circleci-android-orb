@@ -1,12 +1,11 @@
-description: >
-  Android executor to run jobs
+description: Android executor to run jobs.
 
 parameters:
-  resource_type:
+  resource_class:
     type: string
-    description: Define resource class. It can be find in https://circleci.com/docs/configuration-reference/#linuxvm-execution-environment
+    description: Define resource class. It can be found in https://circleci.com/docs/configuration-reference/#linuxvm-execution-environment
     default: large
 
 machine:
   image: android:2024.01.1
-  resource_class: << parameters.resource_type >>
+  resource_class: << parameters.resource_class >>
