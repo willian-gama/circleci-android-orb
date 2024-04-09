@@ -5,7 +5,7 @@ executor: android_executor
 parameters:
   run_screenshot_tests:
     type: boolean
-    description: Determine if screenshot tests should be tested alongside unit tests
+    description: Determine if screenshot tests should be tested alongside unit tests.
 
 steps:
   - load_workspace
