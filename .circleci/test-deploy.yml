@@ -31,12 +31,8 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
-      - checkout
-      - willian-gama/generate_gradle_cache_key
-      # - willian-gama/code_linting:
-      #     build_variant: debug
-      # - willian-gama/unit_tests:
-      #     run_screenshot_tests: true
+      - *checkout
+      - willian-gama/load_workspace
 
 workflows:
   test-deploy:
