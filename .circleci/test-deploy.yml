@@ -27,7 +27,7 @@ checkout: &checkout
 jobs:
   # Create jobs to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
-  command-test:
+  command-tests:
     docker:
       - image: cimg/base:current
     steps:
