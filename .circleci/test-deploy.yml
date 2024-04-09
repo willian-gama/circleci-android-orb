@@ -31,7 +31,7 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
-      - checkout
+      - *checkout
       - willian-gama/setup
       - willian-gama/code_linting:
           build_variant: debug
