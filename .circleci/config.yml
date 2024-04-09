@@ -18,7 +18,7 @@ workflows:
           filters: *filters
           pre-steps:
             - run:
-                command: <<include(scripts/custom_checkout.sh)>>
+                command: '<<include(scripts/custom_checkout.sh)>>'
       - orb-tools/review:
           filters: *filters
       - shellcheck/check:
@@ -27,7 +27,7 @@ workflows:
           checkout: false
           pre-steps:
             - run:
-                command: <<include(scripts/custom_checkout.sh)>>
+                command: '<<include(scripts/custom_checkout.sh)>>'
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github
