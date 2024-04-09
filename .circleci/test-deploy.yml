@@ -26,9 +26,9 @@ jobs:
     executor: android-executor
     steps:
       - checkout
-      - willian-gama/setup
-      - willian-gama/code_linting
-      - willian-gama/unit_tests:
+      - setup
+      - code_linting
+      - unit_tests:
           run_screenshot_tests: true
 
 workflows:
