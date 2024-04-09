@@ -24,6 +24,9 @@ workflows:
       - shellcheck/check:
           filters: *filters
       - orb-tools/continue:
+          pre-steps:
+            - run:
+                command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github
