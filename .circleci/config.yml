@@ -1,7 +1,7 @@
 version: 2.1
 setup: true
 orbs:
-  orb-tools: circleci/orb-tools@11.6.1
+  orb-tools: circleci/orb-tools@12.0.4
   shellcheck: circleci/shellcheck@3.1
 
 filters: &filters
@@ -20,7 +20,8 @@ workflows:
       - shellcheck/check:
           filters: *filters
       - orb-tools/continue:
-          pipeline-number: << pipeline.number >>
-          vcs-type: github
+          orb_name: android-ci
+          pipeline_number: << pipeline.number >>
+          vcs_type: github
           requires: [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
           filters: *filters
