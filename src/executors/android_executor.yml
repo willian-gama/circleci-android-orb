@@ -1,6 +1,12 @@
-description: Android executor using official android orb.
+description: >
+  This is a sample executor using Docker and Node. If you want to provide a custom environment in your orb, insert your image here.
+  If you do not require an executor, you can simply delete this directory.
 
-android:
-  name: android/android-machine
-  resource-class: large
-  tag: default
+parameters:
+  resource_class:
+    type: string
+    default: large
+
+machine:
+  image: android:2024.01.1
+  resource_class: << parameters.resource_class >>

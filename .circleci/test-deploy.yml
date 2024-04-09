@@ -40,6 +40,9 @@ workflows:
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
           filters: *release-filters
+          pre-steps:
+            - run:
+                command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> .
       - orb-tools/publish:
           orb_name: willian-gama/android-ci
           vcs_type: github

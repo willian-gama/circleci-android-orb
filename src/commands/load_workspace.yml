@@ -1,5 +1,5 @@
 description: Load workspace to avoid initial setup step again
 
 steps:
-  attach_workspace:
-    at: ~/
+  - attach_workspace:
+      at: ~/
