@@ -19,16 +19,22 @@ release-filters: &release-filters
   tags:
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
+checkout: &checkout
+  - run:
+      name: Checkout
+      command: git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> . # trigger_parameters.github_app.repo_url is available in Pipeline values - https://circleci.com/docs/variables/#pipeline-values
+
 jobs:
   # Create jobs to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
     executor: android-executor
     steps:
-      - checkout
-      - setup
-      - code_linting
-      - unit_tests:
+      - *checkout
+      - willian-gama/setup
+      - willian-gama/code_linting:
+          build_variant: debug
+      - willian-gama/unit_tests:
           run_screenshot_tests: true
 
 workflows:
