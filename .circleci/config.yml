@@ -27,7 +27,7 @@ workflows:
           checkout: false
           pre-steps:
             - run:
-                command: *checkout
+                command: <<include(scripts/custom_checkout.sh)>>
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github
