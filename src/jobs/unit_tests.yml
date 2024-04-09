@@ -19,7 +19,7 @@ steps:
             name: Run unit and screenshot tests
             command: ./gradlew verifyPaparazziFullDebug # It also runs unit tests: https://github.com/cashapp/paparazzi/issues/1161
   - unless:
-      condition: << parameters.with_screenshot_tests >>
+      condition: << parameters.run_screenshot_tests >>
       steps:
         - run:
             name: Run unit tests only
