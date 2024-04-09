@@ -32,6 +32,11 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
+      - willian-gama/setup
+      - willian-gama/code_linting:
+          build_variant: debug
+      - willian-gama/unit_tests:
+          run_screenshot_tests: true
 
 # jobs:
 #   # Create jobs to test the commands of your orbs.
