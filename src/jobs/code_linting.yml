@@ -4,7 +4,6 @@ executor: android_large_executor
 
 parameters:
   build_variant:
-    default: "debug"
     description: Define build variant. e.g. debug, fullDebug
     type: enum
     enum: ["debug", "fullDebug"]

@@ -3,15 +3,14 @@ description: Run unit tests
 executor: android_large_executor
 
 parameters:
-  build_variant:
-    default: "debug"
-    description: Define build variant. e.g. debug, fullDebug
-    type: enum
-    enum: ["debug", "fullDebug"]
-
   run_screenshot_tests:
     type: boolean
     description: Determine if screenshot tests should be tested alongside unit tests
+
+  build_variant:
+    description: Define build variant. e.g. debug, fullDebug
+    type: enum
+    enum: ["debug", "fullDebug"]
 
 steps:
   - load_workspace
@@ -35,7 +34,7 @@ steps:
             name: Run unit tests
             environment:
               BUILD_VARIANT: << parameters.build_variant >>
-            command:  <<include(scripts/run_unit_tests.sh)>>
+            command: <<include(scripts/run_unit_tests.sh)>>
   - persist_to_workspace:
       root: ~/
       paths: "src/**/build/outputs/unit_test_code_coverage"
