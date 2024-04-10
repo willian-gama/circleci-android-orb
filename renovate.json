@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices"
+  ],
+  "schedule": [
+    "before 8am on the first day of the month"
+  ],
+  "timezone": "Europe/Dublin",
+  "labels": [
+    "dependency-update"
+  ],
+  "prHourlyLimit": 0,
+  "baseBranches": [
+    "develop"
+  ],
+  "separateMultipleMajor": true,
+  "dependencyDashboardTitle": "automated dependency updates dashboard",
+  "dependencyDashboard": true,
+  "branchPrefix": "renovate/",
+  "additionalBranchPrefix": "update-libs/",
+  "commitMessageAction": "update",
+  "commitMessageExtra": "from {{{currentValue}}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
+  "packageRules": [
+    {
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    }
+  ]
+}
