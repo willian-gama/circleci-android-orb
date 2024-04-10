@@ -32,6 +32,12 @@
         "minor",
         "patch"
       ]
-    }
+    },
+    {
+        "matchDatasources": [
+          "docker"
+        ],
+        "pinDigests": false
+      }
   ]
 }
