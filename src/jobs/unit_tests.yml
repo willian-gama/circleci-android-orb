@@ -19,7 +19,7 @@ steps:
   - android/restore-build-cache
   - when:
       condition:
-        equal: [ true, << pipeline.parameters.run_screenshot_tests >> ]
+        equal: [ true, << pipeline.run_screenshot_tests >> ]
       steps:
         - run:
             name: Run unit and screenshot tests
@@ -28,7 +28,7 @@ steps:
             command: <<include(scripts/run_screenshot_tests.sh)>>
   - when:
       condition:
-        equal: [ false, << pipeline.parameters.run_screenshot_tests >> ]
+        equal: [ false, << pipeline.run_screenshot_tests >> ]
       steps:
         - run:
             name: Run unit tests
