@@ -1,0 +1,16 @@
+description: Publish release artifactory to JFrog.
+
+executor: android_executor
+
+steps:
+  - load_workspace
+  - generate_gradle_cache_key
+  - restore_gradle_cache
+  - android/restore-build-cache
+  - run:
+      name: Publish release build
+      command: ./gradlew artifactoryPublish --exclude-task check
+  - slack/notify:
+      channel: team-mobile-android
+      event: fail
+      template: basic_fail_1
