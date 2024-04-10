@@ -1,0 +1,40 @@
+description: Generate code coverage using Jacoco
+
+executor: android_medium_executor
+
+steps:
+  - load_workspace
+  - generate_gradle_cache_key
+  - restore_gradle_cache
+  - run:
+      name: New version check
+      command: bundle exec fastlane update_check
+  - run:
+      name: Decode base64 keystore
+      command: echo $KEYSTORE_BASE64 | base64 -di > kiosk-keystore.jks # TODO jks reference should be set dynamically
+  - run:
+      name: Fastlane meta data check
+      command: bundle exec fastlane metadata_check
+  - run:
+      name: Commit auto generate metadata if needed
+      command: <<include(scripts/metadata_commit_check.sh)>>
+  - run:
+      name: Git fetch
+      command: git fetch
+  - run:
+      name: Deploy bundle to playstore
+      command: bundle exec fastlane deploy_bundle
+  - run:
+      name: Create github release
+      command: bundle exec fastlane create_github_release
+  - run:
+      name: Set latest tag for circle message
+      command: bundle exec fastlane set_version_tag
+  - slack/notify:
+      channel: team-mobile-android
+      event: fail
+      template: basic_fail_1
+  - slack/notify:
+      channel: "squad-core-mobile"
+      event: pass
+      custom: cat ci/slack/kiosk_build_uploaded.json # TODO this file reference should support dynamic content
