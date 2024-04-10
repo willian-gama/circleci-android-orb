@@ -3,6 +3,12 @@ description: Run unit tests
 executor: android_large_executor
 
 parameters:
+  build_variant:
+    default: "debug"
+    description: Define build variant. e.g. debug, fullDebug
+    type: enum
+    enum: ["debug", "fullDebug"]
+
   run_screenshot_tests:
     type: boolean
     description: Determine if screenshot tests should be tested alongside unit tests
