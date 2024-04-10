@@ -1,6 +1,6 @@
 description: Generate code coverage using Jacoco
 
-executor: android_executor
+executor: android_medium_executor
 
 steps:
   - load_workspace

@@ -1,6 +1,6 @@
 description: Run unit tests
 
-executor: android_executor
+executor: android_large_executor
 
 parameters:
   run_screenshot_tests:

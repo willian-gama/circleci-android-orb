@@ -1,6 +1,6 @@
 description: Publish release artifactory to JFrog.
 
-executor: android_executor
+executor: android_large_executor
 
 steps:
   - load_workspace

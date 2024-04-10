@@ -1,6 +1,6 @@
-description: Run unit tests
+description: Publish app to Firebase App Distribution
 
-executor: android_executor
+executor: android_large_executor
 
 steps:
   - load_workspace

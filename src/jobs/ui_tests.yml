@@ -3,6 +3,13 @@ description: Run ui tests
 
 executor: android_executor
 
+parameters:
+  build_variant:
+    default: "debug"
+    description: Define build variant. e.g. debug, fullDebug
+    type: enum
+    enum: ["debug", "fullDebug"]
+
 steps:
   - load_workspace
   - generate_gradle_cache_key
@@ -29,8 +36,8 @@ steps:
       root: ~/
       paths:
         - "src/**/build/outputs/code_coverage"
-        - "src/**/build/intermediates/javac/*debug/classes"
-        - "src/**/build/tmp/kotlin-classes/*debug"
+        - "src/**/build/intermediates/javac/*debug/classes" # Java classes if available
+        - "src/**/build/tmp/kotlin-classes/*debug" # Kotlin classes if available
   - run:
       name: Save ui test results
       command: <<include(scripts/save_ui_tests_results.sh)>>

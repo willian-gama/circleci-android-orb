@@ -1,6 +1,6 @@
 description: Initial setup to download dependencies
 
-executor: android_executor
+executor: android_medium_executor
 
 steps:
   - checkout

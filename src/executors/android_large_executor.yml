@@ -1,0 +1,5 @@
+description: Android large executor to run jobs.
+
+machine:
+  image: android:2024.01.1
+  resource_class: large

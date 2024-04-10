@@ -1,6 +1,6 @@
 description: Run code linting tools such as ktlint, detekt and android lint
 
-executor: android_executor
+executor: android_large_executor
 
 parameters:
   build_variant:

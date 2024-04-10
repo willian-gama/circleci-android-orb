@@ -1,6 +1,6 @@
 description: Upload reports to Sonar cloud.
 
-executor: android_executor
+executor: android_large_executor
 
 steps:
   - load_workspace
