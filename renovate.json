@@ -34,10 +34,10 @@
       ]
     },
     {
-        "matchDatasources": [
-          "docker"
-        ],
-        "pinDigests": false
-      }
+      "matchDatasources": [
+        "docker"
+      ],
+      "pinDigests": false
+    }
   ]
 }
