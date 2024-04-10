@@ -5,7 +5,7 @@ executor: android_executor
 parameters:
   build_variant:
     default: "debug"
-    description: The target Operating System for the heroku binary. Must be one of "linux", "darwin", "win32".
+    description: Define build variant. e.g. debug, fullDebug
     type: enum
     enum: ["debug", "fullDebug"]
 
