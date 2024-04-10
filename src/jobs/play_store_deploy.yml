@@ -11,7 +11,7 @@ steps:
       command: bundle exec fastlane update_check
   - run:
       name: Decode base64 keystore
-      command: echo $KEYSTORE_BASE64 | base64 -di > kiosk-keystore.jks # TODO jks reference should be set dynamically
+      command: <<include(scripts/decode_keystore.sh)>>
   - run:
       name: Fastlane meta data check
       command: bundle exec fastlane metadata_check
@@ -35,6 +35,6 @@ steps:
       event: fail
       template: basic_fail_1
   - slack/notify:
-      channel: "squad-core-mobile"
+      channel: squad-core-mobile
       event: pass
-      custom: cat ci/slack/kiosk_build_uploaded.json # TODO this file reference should support dynamic content
+      custom: echo $(cat ci/slack/kiosk_build_uploaded.json) # TODO this file reference should support dynamic content
