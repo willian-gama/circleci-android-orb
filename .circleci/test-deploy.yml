@@ -34,7 +34,7 @@ jobs:
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-tests:
     docker:
-      - image: cimg/base:current
+      - image: cimg/base:current@sha256:3aa150314c97b745d880820964edb702280393869bd5c70b71a57f24d6e2c38e
     steps:
       - checkout
       # - willian-gama/load_workspace
