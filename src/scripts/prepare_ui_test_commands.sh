@@ -14,5 +14,3 @@ case $BUILD_VARIANT in
     } >> "$BASH_ENV"
   ;;
 esac
-
-source "$BASH_ENV"
