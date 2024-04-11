@@ -33,7 +33,7 @@ steps:
   - android/run-tests:
       max-tries: 3
       no-output-timeout: 5m
-      test-command: ./gradlew $UI_TEST_COMMAND
+      test-command: ./gradlew connectedDebugAndroidTest
   - android/save-gradle-cache:
       cache-prefix: v1a
   - android/save-build-cache
