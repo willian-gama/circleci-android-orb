@@ -1,5 +1,7 @@
 description: Load workspace to avoid initial setup step again.
 
+working_directory: ~/src
+
 steps:
   - attach_workspace:
       at: ~/
