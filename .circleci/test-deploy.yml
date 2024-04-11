@@ -36,8 +36,12 @@ jobs:
     docker:
       - image: cimg/base:2024.02
     steps:
-      - checkout
-      # - willian-gama/load_workspace
+      - *checkout
+      # Run your orb's commands to validate them.
+      - android-ci/load_workspace
+      - android-ci/generate_gradle_cache_key
+      - android-ci/restore_gems_cache
+      - android-ci/restore_gradle_cache
 
 workflows:
   test-deploy:
