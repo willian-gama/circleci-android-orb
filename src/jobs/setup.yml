@@ -7,9 +7,6 @@ executor:
 steps:
   - checkout
   - run:
-      name: Clone fastlane config
-      command: <<include(scripts/clone_fastlane_config.sh)>>
-  - run:
       name: Generate user.properties
       command: <<include(scripts/generate_user_properties.sh)>>
   - generate_gradle_cache_key
