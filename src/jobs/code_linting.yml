@@ -1,11 +1,13 @@
-description: Run code linting tools such as ktlint, detekt and android lint
+description: "Run code linting tools such as: ktlint, detekt and android lint."
 
-executor: android_large_executor
+executor:
+  name: android_executor
+  resource_class: large
 
 parameters:
   build_variant:
-    description: Define build variant. e.g. debug, fullDebug
     type: enum
+    description: "Define build variant such as: debug, fullDebug."
     enum: ["debug", "fullDebug"]
 
 steps:

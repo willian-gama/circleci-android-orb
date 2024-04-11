@@ -1,11 +1,13 @@
-description: Generate code coverage using Jacoco
+description: Generate code coverage using Jacoco.
 
-executor: android_medium_executor
+executor:
+  name: android_executor
+  resource_class: medium
 
 steps:
   - load_workspace
   - run:
-      name: Check unit tests or ui tests are generated
+      name: Check whether unit tests or ui tests are generated
       command: <<include(scripts/check_generated_test_reports.sh)>>
   - generate_gradle_cache_key
   - restore_gradle_cache

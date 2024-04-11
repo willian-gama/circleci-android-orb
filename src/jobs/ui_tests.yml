@@ -1,6 +1,14 @@
-description: Run ui tests
+description: Run ui tests.
 
-executor: android_large_executor
+executor:
+  name: android_executor
+  resource_class: large
+
+parameters:
+  build_variant:
+    type: enum
+    description: "Define build variant such as: debug, fullDebug"
+    enum: ["debug", "fullDebug"]
 
 steps:
   - load_workspace
@@ -12,15 +20,25 @@ steps:
       avd-name: TestAVD
       install: true
       system-image: system-images;android-33;google_apis;x86_64
+  - run:
+      name: Prepare assemble ui command
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/prepare_ui_assemble_command.sh)>>
   - android/start-emulator:
       avd-name: TestAVD
       no-window: true
-      post-emulator-launch-assemble-command: ./gradlew assembleFullDebugAndroidTest
+      post-emulator-launch-assemble-command: ./gradlew $UI_ASSEMBLE_COMMAND
       restore-gradle-cache-prefix: v1a
+  - run:
+      name: Prepare test ui command
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/prepare_ui_test_command.sh)>>
   - android/run-tests:
       max-tries: 3
       no-output-timeout: 5m
-      test-command: ./gradlew connectedFullDebugAndroidTest
+      test-command: ./gradlew $UI_TEST_COMMAND
   - android/save-gradle-cache:
       cache-prefix: v1a
   - android/save-build-cache
@@ -28,8 +46,6 @@ steps:
       root: ~/
       paths:
         - "src/**/build/outputs/code_coverage"
-        - "src/**/build/intermediates/javac/*debug/classes" # Java classes if available
-        - "src/**/build/tmp/kotlin-classes/*debug" # Kotlin classes if available
   - run:
       name: Save ui test results
       command: <<include(scripts/save_ui_tests_results.sh)>>

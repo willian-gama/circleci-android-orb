@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 for directory in */; do
   if test -d "$directory/build/outputs/unit_test_code_coverage" || test -d "$directory/build/outputs/code_coverage"; then

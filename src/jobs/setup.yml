@@ -1,6 +1,8 @@
-description: Initial setup to download dependencies
+description: Initial setup to download android and ruby (fastlane) dependencies.
 
-executor: android_medium_executor
+executor:
+  name: android_executor
+  resource_class: medium
 
 steps:
   - checkout
@@ -10,13 +12,14 @@ steps:
   - run:
       name: Generate user.properties
       command: <<include(scripts/generate_user_properties.sh)>>
+  - generate_gradle_cache_key
   - restore_gradle_cache
   - restore_gems_cache
   - run:
       name: Download android dependencies
       command: ./gradlew androidDependencies
   - run:
-      name: Download ruby dependencies
+      name: Download ruby dependencies (fastlane)
       command: <<include(scripts/download_ruby_dependencies.sh)>>
   - save_cache:
       name: Saving gradle cache

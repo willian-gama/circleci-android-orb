@@ -1,0 +1,13 @@
+description: Android executor to run jobs.
+
+parameters:
+  resource_class:
+    type: enum
+    description: Configure the executor resource class
+    enum:
+      - medium
+      - large
+
+machine:
+  image: android:2024.01.1
+  resource_class: << parameters.resource_class >>

@@ -1,4 +1,4 @@
-description: Load workspace to avoid initial setup step again
+description: Load workspace to avoid initial setup step again.
 
 steps:
   - attach_workspace:

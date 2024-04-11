@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 USER_PROPERTIES="user.properties"
 export USER_PROPERTIES

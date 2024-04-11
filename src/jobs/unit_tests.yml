@@ -1,16 +1,18 @@
 description: Run unit tests
 
-executor: android_large_executor
+executor:
+  name: android_executor
+  resource_class: large
 
 parameters:
+  build_variant:
+    type: enum
+    description: "Define build variant such as: debug, fullDebug"
+    enum: ["debug", "fullDebug"]
+
   run_screenshot_tests:
     type: boolean
-    description: Determine if screenshot tests should be tested alongside unit tests
-
-  build_variant:
-    description: Define build variant. e.g. debug, fullDebug
-    type: enum
-    enum: ["debug", "fullDebug"]
+    description: Determine if screenshot tests should be tested alongside unit tests.
 
 steps:
   - load_workspace
@@ -25,7 +27,7 @@ steps:
             name: Run unit and screenshot tests
             environment:
               BUILD_VARIANT: << parameters.build_variant >>
-            command: <<include(scripts/run_screenshot_tests.sh)>>
+            command: <<include(scripts/run_unit_and_screenshot_tests.sh)>>
   - when:
       condition:
         equal: [ false, << parameters.run_screenshot_tests >> ]
@@ -37,7 +39,10 @@ steps:
             command: <<include(scripts/run_unit_tests.sh)>>
   - persist_to_workspace:
       root: ~/
-      paths: "src/**/build/outputs/unit_test_code_coverage"
+      paths:
+        - "src/**/build/outputs/unit_test_code_coverage"
+        - "src/**/build/intermediates/javac/*debug/classes" # Java classes when available
+        - "src/**/build/tmp/kotlin-classes/*debug" # Kotlin classes when available
   - run:
       name: Save unit test results
       command: <<include(scripts/save_unit_tests_results.sh)>>

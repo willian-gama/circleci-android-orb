@@ -1,4 +1,4 @@
-description: Restore ruby (gems) cache to speed up the build process.
+description: Restore ruby (fastlane) cache to speed up the build process.
 
 steps:
   - restore_cache:

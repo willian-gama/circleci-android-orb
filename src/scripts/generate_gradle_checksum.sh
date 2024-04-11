@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESULT_FILE="$FILENAME"
+RESULT_FILE=$FILE_NAME
 
 if [ -f "$RESULT_FILE" ]; then
   rm "$RESULT_FILE"
@@ -10,7 +10,7 @@ touch "$RESULT_FILE"
 
 FILES=()
 while read -r -d ''; do
-	FILES+=("$REPLY")
+   FILES+=("$REPLY")
 done < <(find . -type f \( -name "build.gradle*" -o -name "gradle-wrapper.properties" -o -name "settings.gradle*" \) -print0)
 
 for FILE in "${FILES[@]}"; do
