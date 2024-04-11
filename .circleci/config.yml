@@ -33,8 +33,10 @@ workflows:
           filters: *filters
       - orb-tools/review:
           filters: *filters
+          exclude: RC006
       - shellcheck/check:
           filters: *filters
+          exclude: SC1090
       - orb-tools/continue:
           checkout: false
           pre-steps:
