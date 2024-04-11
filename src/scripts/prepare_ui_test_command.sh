@@ -6,3 +6,4 @@ case $BUILD_VARIANT in
 esac
 
 echo "export UI_TEST_COMMAND=$COMMAND" >> "$BASH_ENV"
+source "$BASH_ENV"

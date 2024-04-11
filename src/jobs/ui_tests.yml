@@ -25,16 +25,16 @@ steps:
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
       command: <<include(scripts/prepare_ui_assemble_command.sh)>>
-  - run:
-      name: Prepare test ui command
-      environment:
-        BUILD_VARIANT: << parameters.build_variant >>
-      command: <<include(scripts/prepare_ui_test_command.sh)>>
   - android/start-emulator:
       avd-name: TestAVD
       no-window: true
       post-emulator-launch-assemble-command: ./gradlew $UI_ASSEMBLE_COMMAND
       restore-gradle-cache-prefix: v1a
+  - run:
+      name: Prepare test ui command
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/prepare_ui_test_command.sh)>>
   - android/run-tests:
       max-tries: 3
       no-output-timeout: 5m
