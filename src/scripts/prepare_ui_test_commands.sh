@@ -15,5 +15,4 @@ case $BUILD_VARIANT in
   ;;
 esac
 
-echo "$BASH_ENV"
 cat "$BASH_ENV"

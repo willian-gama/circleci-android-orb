@@ -33,12 +33,13 @@ steps:
   - android/start-emulator:
       avd-name: TestAVD
       no-window: true
-      post-emulator-launch-assemble-command: ./gradlew "$UI_ASSEMBLE_COMMAND"
+      post-emulator-launch-assemble-command: ./gradlew $UI_ASSEMBLE_COMMAND
       restore-gradle-cache-prefix: v1a
   - android/run-tests:
       max-tries: 3
       no-output-timeout: 5m
-      test-command: ./gradlew "$UI_TEST_COMMAND"
+      pre-test-command: ""
+      test-command: ./gradlew $UI_TEST_COMMAND
   - android/save-gradle-cache:
       cache-prefix: v1a
   - android/save-build-cache
