@@ -25,6 +25,11 @@ steps:
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
       command: <<include(scripts/prepare_ui_test_commands.sh)>>
+  - run:
+      name: Print ui commands
+      command: |
+        echo $UI_ASSEMBLE_COMMAND
+        echo $UI_TEST_COMMAND
   - android/start-emulator:
       avd-name: TestAVD
       no-window: true
