@@ -7,4 +7,4 @@ steps:
         BUILD_VARIANT: debug
       command: <<include(scripts/prepare_ui_assemble_command.sh)>>
   - run_ui_tests:
-      command: ./gradlew $UI_ASSEMBLE_COMMAND
+      command: "./gradlew $UI_ASSEMBLE_COMMAND"

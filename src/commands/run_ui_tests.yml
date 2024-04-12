@@ -12,5 +12,5 @@ steps:
   - run:
       name: Generate gradle cache key
       environment:
-        UI_ASSEMBLE_COMMAND: "./gradlew << parameters.command >>"
+        UI_ASSEMBLE_COMMAND: << parameters.command >>
       command: <<include(scripts/generate_gradle_checksum.sh)>>
