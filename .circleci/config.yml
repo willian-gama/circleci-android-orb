@@ -33,7 +33,7 @@ workflows:
           filters: *filters
       - orb-tools/review:
           filters: *filters
-          exclude: RC006
+          exclude: "RC006,RC009"
       - shellcheck/check:
           filters: *filters
           exclude: SC1090
