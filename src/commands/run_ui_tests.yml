@@ -1,5 +1,10 @@
 description: Determine if the .build gradle files have been updated to enforce download dependencies again.
 
+parameters:
+  command:
+    type: string
+    description: "Define build variant such as: debug, fullDebug"
+
 steps:
   - run:
       name: Generate gradle cache key
@@ -9,5 +14,8 @@ steps:
   - run:
       name: Print variable
       command: echo $UI_ASSEMBLE_COMMAND
-  - run_ui_tests:
-      command: ./gradlew "${UI_ASSEMBLE_COMMAND}"
+  - run:
+      name: Generate gradle cache key
+      environment:
+        PARAM_PRE_TEST_COMMAND: << parameters.command >>
+      command: <<include(scripts/generate_gradle_checksum.sh)>>
