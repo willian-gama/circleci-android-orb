@@ -30,7 +30,7 @@ steps:
       command: |
         echo $UI_ASSEMBLE_COMMAND
         echo $UI_TEST_COMMAND
-  - start-emulator-and-run-tests:
+  - android/start-emulator-and-run-tests:
       avd-name: TestAVD
       no-window: true
       post-emulator-launch-assemble-command: "./gradlew $UI_ASSEMBLE_COMMAND"
