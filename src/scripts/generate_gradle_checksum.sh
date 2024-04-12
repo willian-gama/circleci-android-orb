@@ -1,8 +1,8 @@
 #!/bin/bash
 
 run_with_retry() {
-   echo "$PARAM_PRE_TEST_COMMAND"
-   $PARAM_PRE_TEST_COMMAND
+   echo "$UI_ASSEMBLE_COMMAND"
+   $UI_ASSEMBLE_COMMAND
 }
 
 run_with_retry
