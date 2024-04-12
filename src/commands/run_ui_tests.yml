@@ -7,13 +7,8 @@ parameters:
 
 steps:
   - run:
-      name: Generate gradle cache key
-      environment:
-        BUILD_VARIANT: debug
-      command: <<include(scripts/prepare_ui_assemble_command.sh)>>
-  - run:
       name: Print variable
-      command: echo $UI_ASSEMBLE_COMMAND
+      command: echo << parameters.command >>
   - run:
       name: Generate gradle cache key
       environment:
