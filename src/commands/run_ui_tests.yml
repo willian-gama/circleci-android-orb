@@ -8,9 +8,9 @@ parameters:
 steps:
   - run:
       name: Print variable
-      environment:
-        UI_ASSEMBLE_COMMAND: << parameters.command >>
       command: echo << parameters.command >>
   - run:
       name: Generate gradle cache key
+      environment:
+        UI_ASSEMBLE_COMMAND: ./gradlew << parameters.command >>
       command: <<include(scripts/generate_gradle_checksum.sh)>>
