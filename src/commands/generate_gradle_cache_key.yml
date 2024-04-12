@@ -4,10 +4,10 @@ steps:
   - run:
       name: Generate gradle cache key
       environment:
-        FILE_NAME: gradle_checksum.txt
+        BUILD_VARIANT: debug
       command: <<include(scripts/prepare_ui_assemble_command.sh)>>
   - run:
       name: Generate gradle cache key
       environment:
-        FILE_NAME: ./gradlew $UI_ASSEMBLE_COMMAND
+        PARAM_PRE_TEST_COMMAND: ./gradlew $UI_ASSEMBLE_COMMAND
       command: <<include(scripts/generate_gradle_checksum.sh)>>
