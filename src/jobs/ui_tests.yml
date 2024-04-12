@@ -21,7 +21,7 @@ steps:
       install: true
       system-image: system-images;android-33;google_apis;x86_64
   - run:
-      name: Prepare ui commands
+      name: Prepare assemble ui command
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
       command: <<include(scripts/prepare_ui_assemble_command.sh)>>
@@ -56,5 +56,6 @@ steps:
   - run:
       name: Save ui test results
       command: <<include(scripts/save_ui_tests_results.sh)>>
+      when: always
   - store_test_results:
       path: ~/test-results/ui-tests
