@@ -30,16 +30,16 @@ steps:
       command: |
         echo $UI_ASSEMBLE_COMMAND
         echo $UI_TEST_COMMAND
-  - android/start-emulator:
+  - start-emulator-and-run-tests:
       avd-name: TestAVD
       no-window: true
       post-emulator-launch-assemble-command: "./gradlew $UI_ASSEMBLE_COMMAND"
       restore-gradle-cache-prefix: v1a
-  - android/run-tests:
       max-tries: 3
       no-output-timeout: 5m
-      # pre-test-command: ""
       test-command: "./gradlew $UI_TEST_COMMAND"
+  # - android/run-tests:
+      # pre-test-command: ""
   - android/save-gradle-cache:
       cache-prefix: v1a
   - android/save-build-cache
