@@ -24,22 +24,28 @@ steps:
       name: Prepare ui commands
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
-      command: <<include(scripts/prepare_ui_test_commands.sh)>>
-  - run:
-      name: Print ui commands
-      command: |
-        echo $UI_ASSEMBLE_COMMAND
-        echo $UI_TEST_COMMAND
-        source "$BASH_ENV"
+      command: <<include(scripts/prepare_ui_assemble_command.sh)>>
   - android/start-emulator:
       avd-name: TestAVD
       no-window: true
       post-emulator-launch-assemble-command: ./gradlew $UI_ASSEMBLE_COMMAND
       restore-gradle-cache-prefix: v1a
-  - android/run-tests:
-      max-tries: 3
-      no-output-timeout: 5m
-      test-command: ./gradlew $UI_TEST_COMMAND
+  - when:
+      condition:
+        equal: [ "debug", << parameters.build_variant >> ]
+      steps:
+        - android/run-tests:
+            max-tries: 3
+            no-output-timeout: 5m
+            test-command: ./gradlew connectedDebugAndroidTest
+  - when:
+      condition:
+        equal: [ "fullDebug", << parameters.build_variant >> ]
+      steps:
+        - android/run-tests:
+          max-tries: 3
+          no-output-timeout: 5m
+          test-command: ./gradlew connectedFullDebugAndroidTest
   - android/save-gradle-cache:
       cache-prefix: v1a
   - android/save-build-cache
