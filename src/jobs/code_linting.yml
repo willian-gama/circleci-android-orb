@@ -25,4 +25,5 @@ steps:
       paths:
         - "src/**/build/reports/ktlint"
         - "src/**/build/reports/detekt/detekt.xml"
-        - "src/**/build/reports/lint-results-*debug.xml"
+        - "src/**/build/reports/lint-results-debug.xml"
+        - "src/**/build/reports/lint-results-*Debug.xml"

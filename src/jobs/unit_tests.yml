@@ -41,10 +41,15 @@ steps:
       root: ~/
       paths:
         - "src/**/build/outputs/unit_test_code_coverage"
-        - "src/**/build/intermediates/javac/*debug/classes" # Java classes when available
-        - "src/**/build/tmp/kotlin-classes/*debug" # Kotlin classes when available
+         # Java classes when available
+        - "src/**/build/intermediates/javac/debug/classes"
+        - "src/**/build/intermediates/javac/*Debug/classes"
+         # Kotlin classes when available
+        - "src/**/build/tmp/kotlin-classes/debug"
+        - "src/**/build/tmp/kotlin-classes/*Debug"
   - run:
       name: Save unit test results
       command: <<include(scripts/save_unit_tests_results.sh)>>
+      when: always
   - store_test_results:
       path: ~/test-results/unit-tests
