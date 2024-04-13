@@ -1,19 +1,11 @@
 #!/bin/bash
 
-case $BUILD_VARIANT in
-  "debug")
-    {
-        echo 'export UI_ASSEMBLE_COMMAND="assembleDebugAndroidTest"'
-        echo 'export UI_TEST_COMMAND="connectedDebugAndroidTest"'
-    } >> "$BASH_ENV"
-  ;;
-  "fullDebug")
-    {
-        echo 'export UI_ASSEMBLE_COMMAND="assembleFullDebugAndroidTest"'
-        echo 'export UI_TEST_COMMAND="connectedFullDebugAndroidTest"'
-    } >> "$BASH_ENV"
-  ;;
-esac
+ASSEMBLE_COMMAND=assemble"$BUILD_VARIANT"AndroidTest
+TEST_COMMAND=connected"$BUILD_VARIANT"AndroidTest
 
-source "$BASH_ENV"
+{
+    echo "export UI_ASSEMBLE_COMMAND=$ASSEMBLE_COMMAND"
+    echo "export UI_TEST_COMMAND=$TEST_COMMAND"
+} >> "$BASH_ENV"
+
 cat "$BASH_ENV"
