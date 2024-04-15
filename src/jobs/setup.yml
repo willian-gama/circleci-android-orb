@@ -8,7 +8,7 @@ steps:
   - checkout
   - run:
       name: Generate user.properties
-      command: ci/scripts/generate_user_properties.sh
+      command: ci/scripts/generate_local_properties.sh
   - generate_gradle_cache_key
   - restore_gradle_cache
 #  - restore_gems_cache
