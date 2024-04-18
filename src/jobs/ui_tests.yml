@@ -29,25 +29,18 @@ steps:
       avd-name: TestAVD
       no-window: true
       post-emulator-launch-assemble-command: ./gradlew $UI_ASSEMBLE_COMMAND
-      restore-gradle-cache-prefix: v1a
   - when:
       condition:
         equal: [ "debug", << parameters.build_variant >> ]
       steps:
-        - android/run-tests:
-            max-tries: 3
-            no-output-timeout: 5m
-            test-command: ./gradlew connectedDebugAndroidTest
+        - run_ui_test:
+            test_command: ./gradlew connectedDebugAndroidTest
   - when:
       condition:
         equal: [ "fullDebug", << parameters.build_variant >> ]
       steps:
-        - android/run-tests:
-            max-tries: 3
-            no-output-timeout: 5m
-            test-command: ./gradlew connectedFullDebugAndroidTest
-  - android/save-gradle-cache:
-      cache-prefix: v1a
+        - run_ui_test:
+            test_command: ./gradlew connectedFullDebugAndroidTest
   - android/save-build-cache
   - persist_to_workspace:
       root: ~/
