@@ -34,13 +34,13 @@ steps:
         equal: [ "debug", << parameters.build_variant >> ]
       steps:
         - run_ui_test:
-            test_command: ./gradlew connectedDebugAndroidTest
+            test_command: connectedDebugAndroidTest
   - when:
       condition:
         equal: [ "fullDebug", << parameters.build_variant >> ]
       steps:
         - run_ui_test:
-            test_command: ./gradlew connectedFullDebugAndroidTest
+            test_command: connectedFullDebugAndroidTest
   - android/save-build-cache
   - persist_to_workspace:
       root: ~/
