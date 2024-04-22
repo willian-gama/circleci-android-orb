@@ -34,11 +34,11 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - android-automation/load_workspace
-      - android-automation/persist_workspace
-      - android-automation/generate_gradle_cache_key
-      - android-automation/save_gradle_cache
-      - android-automation/restore_gradle_cache
+      - android-ci/load_workspace
+      - android-ci/persist_workspace
+      - android-ci/generate_gradle_cache_key
+      - android-ci/save_gradle_cache
+      - android-ci/restore_gradle_cache
 
 workflows:
   test-deploy:
