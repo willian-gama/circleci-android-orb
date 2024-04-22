@@ -1,0 +1,23 @@
+description: App configuration.
+
+usage:
+  version: 2.1
+
+  orbs:
+    automation: willian-gama/android-ci@latest
+
+  workflows:
+    build_and_test:
+      jobs:
+        - automation/plugin_setup
+        - automation/tests:
+            requires:
+              - automation/plugin_setup
+        - automation/internal_publish_release:
+            context: org-global
+            requires:
+              - automation/tests
+            filters:
+              branches:
+                only:
+                  - main
