@@ -1,7 +1,11 @@
 #!/bin/bash
 
-if [ "$RUN_SCREENSHOT_TESTS" = true ]; then
-  ./gradlew verifyPaparazzi"$BUILD_VARIANT" # It also runs unit tests: https://github.com/cashapp/paparazzi/issues/1161
+if [ "$RUN_SCREENSHOT_TESTS" = "true" ]; then
+  COMMAND=verifyPaparazzi"$BUILD_VARIANT" # It also runs unit tests: https://github.com/cashapp/paparazzi/issues/1161
+  echo "Running unit/screenshot tests: $COMMAND"
 else
-  ./gradlew test"$BUILD_VARIANT"UnitTest
+  COMMAND=test"$BUILD_VARIANT"UnitTest
+  echo "Running unit tests: $COMMAND"
 fi
+
+./gradlew "$COMMAND"
