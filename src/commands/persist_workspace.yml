@@ -1,0 +1,7 @@
+description: Persist checkout to workspace to reuse it in other jobs.
+
+steps:
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - src

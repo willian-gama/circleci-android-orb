@@ -1,0 +1,9 @@
+description: Save gradle cache to speed up the build process.
+
+steps:
+  - save_cache:
+      name: Saving gradle cache
+      key: gradle-{{ checksum "gradle_checksum.txt" }}
+      paths:
+        - ~/.gradle
+        - ~/.m2

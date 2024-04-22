@@ -1,0 +1,6 @@
+description: Generate user.properties.
+
+steps:
+  - run:
+      name: Generate user.properties from repository script
+      command: orb/scripts/generate_user_properties.sh

@@ -1,0 +1,12 @@
+description: Run ui tests.
+
+parameters:
+  test_command:
+    type: string
+    description: UI test command
+
+steps:
+  - android/run-tests:
+      max-tries: 3
+      no-output-timeout: 5m
+      test-command: ./gradlew << parameters.test_command >>
