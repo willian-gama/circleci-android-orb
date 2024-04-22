@@ -1,31 +1,34 @@
-description: Full configuration
+description: App configuration.
 
 usage:
   version: 2.1
+
   orbs:
-    automation: willian-gama/android-ci@1.0.26
+    automation: willian-gama/android-ci@latest
+
   workflows:
     build_and_test:
       jobs:
-        - automation/setup
+        - automation/android_setup
         - automation/unit_tests:
             build_variant: debug
             run_screenshot_tests: true
             requires:
-              - automation/setup
+              - automation/android_setup
         - automation/ui_tests:
             build_variant: debug
             requires:
-              - automation/setup
+              - automation/android_setup
         - automation/code_linting:
             build_variant: debug
             requires:
-              - automation/setup
+              - automation/android_setup
         - automation/code_coverage:
             requires:
               - automation/unit_tests
               - automation/ui_tests
         - automation/sonar:
+            context: SonarCloud
             requires:
               - automation/code_linting
               - automation/code_coverage
