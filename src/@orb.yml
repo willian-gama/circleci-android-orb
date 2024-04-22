@@ -18,4 +18,3 @@ display:
 orbs:
   android: circleci/android@2.5.0
   slack: circleci/slack@4.1
-  circleci-cli: circleci/circleci-cli@0.1.9
