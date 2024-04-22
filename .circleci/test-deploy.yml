@@ -22,7 +22,7 @@ release-filters: &release-filters
 executors:
   docker:
     docker:
-      - image: circleci/circleci-cli:0.1.9
+      - image: circleci/circleci-cli:latest
 
 jobs:
   # Create jobs to test the commands of your orbs.

@@ -11,7 +11,7 @@ filters: &filters
 executors:
   docker:
     docker:
-      - image: circleci/circleci-cli:0.1.9
+      - image: circleci/circleci-cli:latest
 
 workflows:
   lint-pack:
