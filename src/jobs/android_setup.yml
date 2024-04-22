@@ -1,0 +1,28 @@
+description: Initial setup to download android and ruby (fastlane) dependencies.
+
+executor:
+  name: android_executor
+  resource_class: medium
+
+steps:
+  - checkout
+  - generate_user_properties
+  # - run:
+  #     name: Clone fastlane config
+  #     command: <<include(scripts/clone_fastlane_config.sh)>>
+  - generate_gradle_cache_key
+  - restore_gradle_cache
+  # - restore_gems_cache
+  - run:
+      name: Download android dependencies
+      command: ./gradlew androidDependencies
+  # - run:
+  #     name: Download ruby dependencies (fastlane)
+  #     command: <<include(scripts/download_ruby_dependencies.sh)>>
+  - save_gradle_cache
+  - save_cache:
+      name: Saving gems cache
+      key: gems-{{ checksum "Gemfile.lock" }}
+      paths:
+        - vendor/bundle
+  - persist_workspace

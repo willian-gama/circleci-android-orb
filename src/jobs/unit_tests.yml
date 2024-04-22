@@ -19,24 +19,12 @@ steps:
   - generate_gradle_cache_key
   - restore_gradle_cache
   - android/restore-build-cache
-  - when:
-      condition:
-        equal: [ true, << parameters.run_screenshot_tests >> ]
-      steps:
-        - run:
-            name: Run unit and screenshot tests
-            environment:
-              BUILD_VARIANT: << parameters.build_variant >>
-            command: <<include(scripts/run_unit_and_screenshot_tests.sh)>>
-  - when:
-      condition:
-        equal: [ false, << parameters.run_screenshot_tests >> ]
-      steps:
-        - run:
-            name: Run unit tests
-            environment:
-              BUILD_VARIANT: << parameters.build_variant >>
-            command: <<include(scripts/run_unit_tests.sh)>>
+  - run:
+      name: Run unit tests
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+        RUN_SCREENSHOT_TESTS: << parameters.run_screenshot_tests >>
+      command: <<include(scripts/run_unit_tests.sh)>>
   - persist_to_workspace:
       root: ~/
       paths:

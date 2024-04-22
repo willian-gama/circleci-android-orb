@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$(git status fastlane/metadata/ --porcelain)" ]; then
   echo "Contains metadata updates"

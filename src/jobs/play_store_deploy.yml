@@ -1,4 +1,4 @@
-description: Generate code coverage using Jacoco
+description: Deploy the app to Google Play internal testing.
 
 executor:
   name: android_executor
@@ -8,6 +8,8 @@ steps:
   - load_workspace
   - generate_gradle_cache_key
   - restore_gradle_cache
+  - restore_gems_cache
+  - android/restore-build-cache
   - run:
       name: New version check
       command: bundle exec fastlane update_check
@@ -36,7 +38,10 @@ steps:
       channel: team-mobile-android
       event: fail
       template: basic_fail_1
+  - run:
+      name: Prepare slack notification
+      command: <<include(scripts/prepare_slack_notification.sh)>>
   - slack/notify:
       channel: squad-core-mobile
       event: pass
-      custom: echo $(cat ci/slack/kiosk_build_uploaded.json) # TODO this file reference should support dynamic content
+      template: SLACK_BUILD_UPLOADED_TEMPLATE

@@ -30,13 +30,15 @@ jobs:
   command-test:
     docker:
       - image: cimg/base:2024.02
+    working_directory: ~/src
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - android-ci/load_workspace
-      - android-ci/generate_gradle_cache_key
-      - android-ci/restore_gems_cache
-      - android-ci/restore_gradle_cache
+      - android-automation/load_workspace
+      - android-automation/persist_workspace
+      - android-automation/generate_gradle_cache_key
+      - android-automation/save_gradle_cache
+      - android-automation/restore_gradle_cache
 
 workflows:
   test-deploy:

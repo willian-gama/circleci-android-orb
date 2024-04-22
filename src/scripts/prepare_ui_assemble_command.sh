@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ASSEMBLE_COMMAND=assemble"$BUILD_VARIANT"AndroidTest
-echo "export UI_ASSEMBLE_COMMAND=$ASSEMBLE_COMMAND" >> "$BASH_ENV"
+COMMAND=assemble"$BUILD_VARIANT"AndroidTest
+echo "export UI_ASSEMBLE_COMMAND=$COMMAND" >> "$BASH_ENV"

@@ -1,0 +1,19 @@
+description: Run tests in gradle environment.
+
+executor:
+  name: android_executor
+  resource_class: medium
+
+steps:
+  - load_workspace
+  - generate_gradle_cache_key
+  - restore_gradle_cache
+  - run:
+      name: Run unit tests
+      command: ./gradlew test
+  - run:
+      name: Save unit test results
+      command: <<include(scripts/save_unit_tests_results.sh)>>
+      when: always
+  - store_test_results:
+      path: ~/test-results/unit-tests
