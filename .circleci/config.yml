@@ -8,19 +8,12 @@ filters: &filters
   tags:
     only: /.*/
 
-executors:
-  docker:
-    docker:
-      - image: circleci/circleci-cli:latest
-
 workflows:
   lint-pack:
     jobs:
       - orb-tools/lint:
           filters: *filters
       - orb-tools/pack:
-          executor:
-            name: docker
           filters: *filters
       - orb-tools/review:
           filters: *filters
@@ -28,11 +21,28 @@ workflows:
       - shellcheck/check:
           filters: *filters
           exclude: SC1090
+      - orb-tools/publish:
+          context: orb-publishing
+          orb_name: kitmanlabs/android-automation
+          vcs_type: github
+          pub_type: dev
+          dev_tags: dev:$CIRCLE_SHA1, dev:$CIRCLE_BRANCH
+          enable_pr_comment: false
+          requires:
+            - orb-tools/lint
+            - orb-tools/pack
+            - orb-tools/review
+            - shellcheck/check
+          filters: *filters
       - orb-tools/continue:
           executor:
             name: docker
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github
-          requires: [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
+          requires:
+            - orb-tools/lint
+            - orb-tools/pack
+            - orb-tools/review
+            - shellcheck/check
           filters: *filters
