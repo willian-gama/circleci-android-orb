@@ -8,6 +8,10 @@ filters: &filters
   tags:
     only: /.*/
 
+release-filters: &release-filters
+  tags:
+    ignore: /.*/
+
 workflows:
   lint-pack:
     jobs:
@@ -33,7 +37,7 @@ workflows:
             - orb-tools/pack
             - orb-tools/review
             - shellcheck/check
-          filters: *filters
+          filters: *release-filters
       - orb-tools/continue:
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
