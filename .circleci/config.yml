@@ -23,7 +23,7 @@ workflows:
           exclude: SC1090
       - orb-tools/publish:
           context: orb-publishing
-          orb_name: kitmanlabs/android-automation
+          orb_name: willian-gama/android-ci
           vcs_type: github
           pub_type: dev
           dev_tags: dev:$CIRCLE_SHA1, dev:$CIRCLE_BRANCH
