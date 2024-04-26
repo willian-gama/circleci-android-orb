@@ -35,8 +35,6 @@ workflows:
             - shellcheck/check
           filters: *filters
       - orb-tools/continue:
-          executor:
-            name: docker
           orb_name: android-ci
           pipeline_number: << pipeline.number >>
           vcs_type: github
