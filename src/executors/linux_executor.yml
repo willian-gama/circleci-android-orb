@@ -6,6 +6,6 @@ parameters:
     description: Configure the executor resource class
     enum: ["medium", "large"]
 
-docker:
-  image: circleci/circleci-cli:latest
+machine:
+  image: ubuntu-2004:202101-01
   resource_class: << parameters.resource_class >>
