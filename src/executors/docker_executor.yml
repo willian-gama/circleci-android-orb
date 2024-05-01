@@ -1,0 +1,11 @@
+description: Docker client executor to run jobs.
+
+parameters:
+  resource_class:
+    type: enum
+    description: Configure the executor resource class
+    enum: ["medium", "large"]
+
+docker:
+  image: circleci/circleci-cli:latest
+  resource_class: << parameters.resource_class >>

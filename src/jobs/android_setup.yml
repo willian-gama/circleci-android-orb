@@ -1,7 +1,7 @@
 description: Initial setup to download android and ruby (fastlane) dependencies.
 
 executor:
-  name: android_executor
+  name: docker_executor
   resource_class: medium
 
 steps:
