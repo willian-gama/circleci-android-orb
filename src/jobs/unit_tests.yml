@@ -9,7 +9,7 @@ parameters:
 
   build_variant:
     type: enum
-    description: "Define build variant such as: debug, fullDebug"
+    description: Define build variant such as debug, fullDebug
     enum: ["debug", "fullDebug"]
 
   parallelism:

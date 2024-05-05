@@ -21,6 +21,8 @@ steps:
       command: <<include(scripts/download_android_dependencies.sh)>>
   - run:
       name: Assemble build
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
       command: <<include(scripts/assemble_build.sh)>>
   - save_gradle_cache
   - persist_workspace
