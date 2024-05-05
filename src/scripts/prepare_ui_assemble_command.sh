@@ -5,7 +5,7 @@ UI_ASSEMBLE_COMMAND=$(
   echo "$SPLIT_UI_TEST_CLASS_NAMES" |
   awk -v ASSEMBLE_TEST_COMMAND="$ASSEMBLE_TEST_COMMAND" '{
     for (i=1; i<=NF; i++) {
-      sub(/\..*/, "", $i)
+      sub(/\.com\..*/, "", $i)
       print($i":"ASSEMBLE_TEST_COMMAND)
     }
   }' |
