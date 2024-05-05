@@ -6,6 +6,7 @@ UI_ASSEMBLE_COMMAND=$(
   awk -v ASSEMBLE_TEST_COMMAND="$ASSEMBLE_TEST_COMMAND" '{
     for (i=1; i<=NF; i++) {
       sub(/\.com\..*/, "", $i)
+      sub(/\./, ":", $i)
       print($i":"ASSEMBLE_TEST_COMMAND)
     }
   }' |
