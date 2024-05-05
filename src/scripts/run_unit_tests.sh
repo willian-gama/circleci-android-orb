@@ -24,6 +24,6 @@ for MODULE in "${MODULES[@]}"; do
       }
     }' ORS=" "
   )
-  # shellcheck disable=SC2086 # Do not expand intentionally because command has spaces...
+  # shellcheck disable=SC2086 # Do not expand intentionally because command has spaces.
   ./gradlew "$MODULE:test${BUILD_VARIANT}UnitTest" $UNIT_TEST_CLASS_NAMES
 done

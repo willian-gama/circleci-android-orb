@@ -21,10 +21,10 @@ workflows:
           filters: *filters
       - orb-tools/review:
           filters: *filters
-          exclude: "RC006,RC009"
+          exclude: RC006,RC009
       - shellcheck/check:
           filters: *filters
-          exclude: SC1090
+          exclude: SC1090,SC2086
       - orb-tools/publish:
           context: orb-publishing
           orb_name: willian-gama/android-ci

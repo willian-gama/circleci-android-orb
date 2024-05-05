@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./gradlew assemble"$BUILD_VARIANT"
+./gradlew assemble$BUILD_VARIANT
