@@ -1,5 +1,5 @@
 #!/bin/bash
 
 COMMAND=assemble$BUILD_VARIANT
-echo "$COMMAND"
+echo "Running command: $COMMAND"
 ./gradlew "$COMMAND"

@@ -1,3 +1,5 @@
 #!/bin/bash
 
-./gradlew ktlintCheck detekt lint"$BUILD_VARIANT"
+COMMAND=ktlintCheck detekt lint"$BUILD_VARIANT"
+echo "Running command: $COMMAND"
+./gradlew "$COMMAND"

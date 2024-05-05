@@ -1,3 +1,5 @@
 #!/bin/bash
 
-./gradlew verifyPaparazzi"$BUILD_VARIANT"
+COMMAND=verifyPaparazzi$BUILD_VARIANT
+echo "Running command: $COMMAND"
+./gradlew "$COMMAND"
