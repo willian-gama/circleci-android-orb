@@ -25,7 +25,9 @@ group_unit_tests_per_module() {
     UNIT_TEST_CLASS_NAMES=$(
       echo "$SPLIT_UNIT_TEST_CLASS_NAMES" |
       awk "/^$MODULE\./" |
-      awk -F"^$MODULE\." '{ print("--tests", $2) }' ORS=" "
+      awk -F"^$MODULE\\." '{
+        print("--tests", $2)
+      }' ORS=" "
     )
 
     if [ -n "$UNIT_TEST_CLASS_NAMES" ]; then
