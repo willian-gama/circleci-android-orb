@@ -1,5 +1,6 @@
 #!/bin/bash
 
-COMMAND=ktlintCheck detekt lint"$BUILD_VARIANT"
+COMMAND="ktlintCheck detekt lint$BUILD_VARIANT"
 echo "Running command: $COMMAND"
-./gradlew "$COMMAND"
+# shellcheck disable=SC2086 # Do not expand gradle command because it has spaces.
+./gradlew $COMMAND

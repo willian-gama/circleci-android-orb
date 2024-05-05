@@ -6,7 +6,7 @@ run_ui_tests_with_retry() {
   TRIES=1
   until [ $TRIES -gt "$MAX_TRIES" ]; do
     echo "Starting test attempt $TRIES with command $1"
-    # shellcheck disable=SC2086 # Do not expand intentionally because gradle command has spaces.
+    # shellcheck disable=SC2086 # Do not expand gradle command because it has spaces.
     ./gradlew $1 && break
     TRIES=$((TRIES+1))
     sleep "$RETRY_INTERVAL"

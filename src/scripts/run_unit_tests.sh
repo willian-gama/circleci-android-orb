@@ -2,7 +2,7 @@
 
 run_unit_tests() {
   echo "Running unit tests: $1"
-  # shellcheck disable=SC2086 # Do not expand intentionally because gradle command has spaces.
+  # shellcheck disable=SC2086 # Do not expand gradle command because it has spaces.
   ./gradlew $1
 }
 
