@@ -11,7 +11,7 @@ group_unit_tests_per_module() {
     echo "$SPLIT_UNIT_TEST_CLASS_NAMES" |
     awk '{
       for (i=1; i<=NF; i++) {
-        sub(/\..*/, "", $i)
+        sub(/\.com\..*/, "", $i)
         print($i)
       }
     }' |
