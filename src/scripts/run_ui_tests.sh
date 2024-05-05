@@ -42,7 +42,7 @@ group_ui_tests_per_module() {
       }' ORS=","
    )
 
-   if [ -n "$UNIT_TEST_CLASS_NAMES" ]; then
+   if [ -n "$UI_TEST_CLASS_NAMES" ]; then
       run_ui_tests_with_retry "${MODULE//\./:}:$UI_TEST_COMMAND -Pandroid.testInstrumentationRunnerArguments.class=$UI_TEST_CLASS_NAMES"
    fi
   done
