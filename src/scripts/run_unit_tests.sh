@@ -7,6 +7,7 @@ run_unit_tests() {
 }
 
 group_unit_tests_per_module() {
+  UNIT_TEST_COMMAND=test${BUILD_VARIANT}UnitTest
   MODULES=$(
     echo "$SPLIT_UNIT_TEST_CLASS_NAMES" |
     awk '{
@@ -24,16 +25,13 @@ group_unit_tests_per_module() {
     UNIT_TEST_CLASS_NAMES=$(
       echo "$SPLIT_UNIT_TEST_CLASS_NAMES" |
       awk "/^$MODULE\./" |
-      awk '{
-        for (i=1; i<=NF; i++) {
-          sub(/^[^.]*\./, "", $i)
-          print("--tests", $i)
-        }
+      awk -F "^$MODULE\." '{
+        print("--tests", $2)
       }' ORS=" "
     )
 
     if [ -n "$UNIT_TEST_CLASS_NAMES" ]; then
-      run_unit_tests "$MODULE:test${BUILD_VARIANT}UnitTest $UNIT_TEST_CLASS_NAMES"
+      run_unit_tests "${MODULE//\./:}:$UNIT_TEST_COMMAND $UNIT_TEST_CLASS_NAMES"
     fi
   done
 }

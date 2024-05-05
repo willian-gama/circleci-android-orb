@@ -19,6 +19,7 @@ run_ui_tests_with_retry() {
 }
 
 group_ui_tests_per_module() {
+  UI_TEST_COMMAND=connected${BUILD_VARIANT}AndroidTest
   MODULES=$(
     echo "$SPLIT_UI_TEST_CLASS_NAMES" |
     awk '{
@@ -36,16 +37,13 @@ group_ui_tests_per_module() {
     UI_TEST_CLASS_NAMES=$(
       echo "$SPLIT_UI_TEST_CLASS_NAMES" |
       awk "/^$MODULE\./" |
-      awk '{
-        for (i=1; i<=NF; i++) {
-          sub(/^[^.]*\./, "", $i)
-          print($i)
-        }
+      awk -F "^$MODULE\." '{
+        print("$2")
       }' ORS=","
    )
 
    if [ -n "$UNIT_TEST_CLASS_NAMES" ]; then
-      run_ui_tests_with_retry "$MODULE:connected${BUILD_VARIANT}AndroidTest -Pandroid.testInstrumentationRunnerArguments.class=$UI_TEST_CLASS_NAMES"
+      run_ui_tests_with_retry "${MODULE//\./:}:$UI_TEST_COMMAND -Pandroid.testInstrumentationRunnerArguments.class=$UI_TEST_CLASS_NAMES"
    fi
   done
 }
