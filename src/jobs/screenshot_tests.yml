@@ -10,6 +10,13 @@ parameters:
     description: "Define build variant such as: debug, fullDebug"
     enum: [debug, fullDebug]
 
+  parallelism:
+    description: Circleci machines/containers to use for load balancing
+    type: integer
+    default: 1
+
+parallelism: << parameters.parallelism >>
+
 steps:
   - load_workspace
   - generate_gradle_cache_key
