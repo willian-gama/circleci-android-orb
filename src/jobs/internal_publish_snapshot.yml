@@ -1,4 +1,4 @@
-description: Publish release artifactory to JFrog.
+description: Publish snapshot artifactory to JFrog.
 
 executor:
   name: android_executor
@@ -9,6 +9,6 @@ steps:
   - generate_gradle_cache_key
   - restore_gradle_cache
   - run:
-      name: Publish release build
-      command: ./gradlew artifactoryPublish --exclude-task check
+      name: Publish snapshot build
+      command: ./gradlew artifactoryPublish -Psnapshot --exclude-task check
   - slack_notify_failure_event

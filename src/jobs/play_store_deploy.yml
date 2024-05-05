@@ -4,12 +4,16 @@ executor:
   name: android_executor
   resource_class: large
 
+parameters:
+  app_name:
+    type: string
+    description: App name to display in Slack notification
+
 steps:
   - load_workspace
   - generate_gradle_cache_key
   - restore_gradle_cache
-  - restore_gems_cache
-  - android/restore-build-cache
+  - restore_and_save_gems_cache
   - run:
       name: New version check
       command: bundle exec fastlane update_check
@@ -34,14 +38,13 @@ steps:
   - run:
       name: Set latest tag for circle message
       command: bundle exec fastlane set_version_tag
-  - slack/notify:
-      channel: team-mobile-android
-      event: fail
-      template: basic_fail_1
+  - slack_notify_failure_event
   - run:
       name: Prepare slack notification
+      environment:
+        APP_NAME: << parameters.app_name >>
       command: <<include(scripts/prepare_slack_notification.sh)>>
   - slack/notify:
       channel: squad-core-mobile
       event: pass
-      template: SLACK_BUILD_UPLOADED_TEMPLATE
+      template: UPLOAD_BUILD_TEMPLATE

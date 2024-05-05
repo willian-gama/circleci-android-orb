@@ -10,20 +10,26 @@ parameters:
     description: "Define build variant such as: debug, fullDebug"
     enum: ["debug", "fullDebug"]
 
-  run_screenshot_tests:
-    type: boolean
-    description: Determine if screenshot tests should be tested alongside unit tests.
+  parallelism:
+    description: Circleci machines/containers to use for load balancing
+    type: integer
+    default: 1
+
+parallelism: << parameters.parallelism >>
 
 steps:
   - load_workspace
   - generate_gradle_cache_key
   - restore_gradle_cache
-  - android/restore-build-cache
+  - run:
+      name: Split unit tests
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/split_unit_tests.sh)>>
   - run:
       name: Run unit tests
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
-        RUN_SCREENSHOT_TESTS: << parameters.run_screenshot_tests >>
       command: <<include(scripts/run_unit_tests.sh)>>
   - persist_to_workspace:
       root: ~/
