@@ -7,6 +7,11 @@ parameters:
     enum: [medium, large, xlarge]
     default: large
 
+  build_variant:
+    type: enum
+    description: "Define build variant such as: debug, fullDebug"
+    enum: [debug, fullDebug]
+
 executor:
   name: android_executor
   resource_class: << parameters.resource_class >>

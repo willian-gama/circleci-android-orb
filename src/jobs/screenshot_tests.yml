@@ -8,7 +8,7 @@ parameters:
   build_variant:
     type: enum
     description: "Define build variant such as: debug, fullDebug"
-    enum: ["debug", "fullDebug"]
+    enum: [debug, fullDebug]
 
 steps:
   - load_workspace

@@ -4,13 +4,13 @@ parameters:
   resource_class:
     type: enum
     description: Configure the executor resource class
-    enum: ["medium", "large", "xlarge"]
+    enum: [medium, large, xlarge]
     default: medium
 
   build_variant:
     type: enum
     description: "Define build variant such as: debug, fullDebug"
-    enum: ["debug", "fullDebug"]
+    enum: [debug, fullDebug]
 
   parallelism:
     description: Circleci machines/containers to use for load balancing
