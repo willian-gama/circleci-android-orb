@@ -4,8 +4,8 @@ parameters:
   resource_class:
     type: enum
     description: Configure the executor resource class
-    enum: ["medium", "large", "xlarge"]
-    default: medium
+    enum: [medium, large, xlarge]
+    default: large
 
 executor:
   name: android_executor

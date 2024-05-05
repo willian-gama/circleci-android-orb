@@ -4,7 +4,7 @@ parameters:
   resource_class:
     type: enum
     description: Configure the executor resource class
-    enum: ["medium", "large", "xlarge"]
+    enum: [medium, large, xlarge]
 
 working_directory: ~/src
 
