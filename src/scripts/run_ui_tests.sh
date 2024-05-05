@@ -37,8 +37,8 @@ group_ui_tests_per_module() {
     UI_TEST_CLASS_NAMES=$(
       echo "$SPLIT_UI_TEST_CLASS_NAMES" |
       awk "/^$MODULE\./" |
-      awk -F"^$MODULE." '{
-        print("$2")
+      awk -F "^$MODULE." '{
+        print($2)
       }' ORS=","
    )
 
