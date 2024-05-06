@@ -5,7 +5,7 @@ parameters:
     type: enum
     description: Configure the executor resource class
     enum: [medium, large, xlarge]
-    default: large
+    default: xlarge
 
   build_variant:
     type: enum
