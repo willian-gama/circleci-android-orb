@@ -27,6 +27,7 @@ steps:
   - load_workspace
   - generate_gradle_cache_key
   - restore_gradle_cache
+  - android/restore-build-cache
   - run:
       name: Split unit tests
       environment:
