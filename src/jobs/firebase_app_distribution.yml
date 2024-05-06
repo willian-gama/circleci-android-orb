@@ -4,10 +4,18 @@ executor:
   name: android_executor
   resource_class: large
 
+parameters:
+  build_variant:
+    type: enum
+    description: Define build variant such as debug, fullDebug
+    enum: [debug, fullDebug]
+
 steps:
   - load_workspace
   - generate_gradle_cache_key
   - restore_gradle_cache
   - run:
       name: Upload to Firebase App Distribution
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
       command: <<include(scripts/upload_to_firebase_app_distribution.sh)>>
