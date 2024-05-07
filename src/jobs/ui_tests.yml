@@ -45,7 +45,7 @@ steps:
   - android/start-emulator:
       avd-name: TestAVD
       no-window: true
-      restore-gradle-cache-post-emulator-launch: false
+      restore-gradle-cache-post-emulator-launch: true
       post-emulator-launch-assemble-command: ./gradlew $UI_ASSEMBLE_COMMAND
   - run:
       name: Run ui tests
