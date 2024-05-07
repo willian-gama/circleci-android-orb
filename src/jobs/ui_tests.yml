@@ -55,6 +55,7 @@ steps:
         RETRY_INTERVAL: 2
       command: <<include(scripts/run_ui_tests.sh)>>
       no_output_timeout: 5m
+  - android/save-build-cache
   - persist_to_workspace:
       root: ~/
       paths:
