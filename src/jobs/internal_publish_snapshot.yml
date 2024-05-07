@@ -8,6 +8,7 @@ steps:
   - load_workspace
   - generate_gradle_cache_key
   - restore_android_cache
+  - android/restore-build-cache
   - run:
       name: Publish snapshot build
       command: ./gradlew artifactoryPublish -Psnapshot --exclude-task check
