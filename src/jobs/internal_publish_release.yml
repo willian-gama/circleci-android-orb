@@ -7,7 +7,7 @@ executor:
 steps:
   - load_workspace
   - generate_gradle_cache_key
-  - restore_gradle_cache
+  - restore_android_cache
   - run:
       name: Publish release build
       command: ./gradlew artifactoryPublish --exclude-task check

@@ -10,7 +10,7 @@ steps:
       name: Check whether unit tests or ui tests are generated
       command: <<include(scripts/check_generated_test_reports.sh)>>
   - generate_gradle_cache_key
-  - restore_gradle_cache
+  - restore_android_cache
   - run:
       name: Generate code coverage (Jacoco)
       command: <<include(scripts/generate_code_coverage.sh)>>

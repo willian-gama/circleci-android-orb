@@ -26,8 +26,8 @@ parallelism: << parameters.parallelism >>
 steps:
   - load_workspace
   - generate_gradle_cache_key
-  - restore_gradle_cache
-  - android/restore-build-cache
+  - restore_android_cache
+  # - android/restore-build-cache
   - android/create-avd:
       avd-name: TestAVD
       install: true

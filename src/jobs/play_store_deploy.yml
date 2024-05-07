@@ -12,7 +12,7 @@ parameters:
 steps:
   - load_workspace
   - generate_gradle_cache_key
-  - restore_gradle_cache
+  - restore_android_cache
   - restore_and_save_gems_cache
   - run:
       name: New version check

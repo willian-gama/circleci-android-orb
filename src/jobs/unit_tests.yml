@@ -26,7 +26,7 @@ parallelism: << parameters.parallelism >>
 steps:
   - load_workspace
   - generate_gradle_cache_key
-  - restore_gradle_cache
+  - restore_android_cache
   - android/restore-build-cache
   - run:
       name: Split unit tests
