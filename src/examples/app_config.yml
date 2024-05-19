@@ -28,7 +28,6 @@ usage:
               - automation/unit_tests
               - automation/ui_tests
         - automation/sonar:
-            context: SonarCloud
             requires:
               - automation/code_linting
               - automation/code_coverage

@@ -1,6 +1,5 @@
 description: Restore gradle cache to speed up the build process.
 
 steps:
-  - restore_cache:
-      name: Restore gradle cache
-      key: gradle-{{ checksum "gradle_checksum.txt" }}
+  - android/restore-gradle-cache:
+      find-args: . -name "build.gradle*" -o -name "gradle-wrapper.properties" -o -name "settings.gradle*"

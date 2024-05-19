@@ -8,11 +8,10 @@ parameters:
   build_variant:
     type: enum
     description: "Define build variant such as: debug, fullDebug."
-    enum: ["debug", "fullDebug"]
+    enum: [debug, fullDebug]
 
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
   - android/restore-build-cache
   - run:
