@@ -1,0 +1,7 @@
+description: Send a Slack notification on the defined channel.
+
+steps:
+  - slack/notify:
+      channel: android-test-deploy
+      event: fail
+      template: basic_fail_1

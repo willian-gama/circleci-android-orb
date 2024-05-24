@@ -1,4 +1,4 @@
-description: Generate user.properties.
+description: Generate user.properties
 
 steps:
   - run:

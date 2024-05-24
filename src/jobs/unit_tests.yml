@@ -1,30 +1,44 @@
 description: Run unit tests
 
-executor:
-  name: android_executor
-  resource_class: large
-
 parameters:
+  resource_class:
+    type: enum
+    description: Configure the executor resource class
+    enum: [medium, large, xlarge]
+    default: large
+
   build_variant:
     type: enum
-    description: "Define build variant such as: debug, fullDebug"
-    enum: ["debug", "fullDebug"]
+    description: Define build variant such as debug, fullDebug
+    enum: [debug, fullDebug]
 
-  run_screenshot_tests:
-    type: boolean
-    description: Determine if screenshot tests should be tested alongside unit tests.
+  parallelism:
+    description: Circleci machines/containers to use for load balancing
+    type: integer
+    default: 1
+
+executor:
+  name: android_executor
+  resource_class: << parameters.resource_class >>
+
+parallelism: << parameters.parallelism >>
 
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
-  - android/restore-build-cache
+  - run:
+      name: Split unit tests
+      command: <<include(scripts/split_unit_tests.sh)>>
   - run:
       name: Run unit tests
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
-        RUN_SCREENSHOT_TESTS: << parameters.run_screenshot_tests >>
       command: <<include(scripts/run_unit_tests.sh)>>
+  - run:
+      name: Save unit test code coverage reports
+      environment:
+        CODE_COVERAGE_PATH: unit_test_code_coverage/.*UnitTest.exec
+      command: <<include(scripts/save_code_coverage_reports.sh)>>
   - persist_to_workspace:
       root: ~/
       paths:

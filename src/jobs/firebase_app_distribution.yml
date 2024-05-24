@@ -6,9 +6,8 @@ executor:
 
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
-  - android/restore-build-cache
+  - decode_keystore
   - run:
       name: Upload to Firebase App Distribution
-      command: ./gradlew assembleDebug appDistributionUploadDebug
+      command: <<include(scripts/upload_to_firebase_app_distribution.sh)>>

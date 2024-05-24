@@ -13,7 +13,7 @@ release-filters: &release-filters
     ignore: /.*/
 
 workflows:
-  lint-pack:
+  lint-and-pack:
     jobs:
       - orb-tools/lint:
           filters: *filters
@@ -21,10 +21,8 @@ workflows:
           filters: *filters
       - orb-tools/review:
           filters: *filters
-          exclude: "RC006,RC009"
       - shellcheck/check:
           filters: *filters
-          exclude: SC1090
       - orb-tools/publish:
           context: orb-publishing
           orb_name: willian-gama/android-ci
@@ -38,10 +36,11 @@ workflows:
             - orb-tools/review
             - shellcheck/check
           filters: *release-filters
+      # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           orb_name: android-ci
-          pipeline_number: << pipeline.number >>
           vcs_type: github
+          pipeline_number: << pipeline.number >>
           requires:
             - orb-tools/lint
             - orb-tools/pack

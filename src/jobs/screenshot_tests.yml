@@ -1,0 +1,32 @@
+description: Run screenshot tests
+
+parameters:
+  resource_class:
+    type: enum
+    description: Configure the executor resource class
+    enum: [medium, large, xlarge]
+    default: large
+
+  build_variant:
+    type: enum
+    description: Define build variant such as debug, fullDebug
+    enum: [debug, fullDebug]
+
+executor:
+  name: android_executor
+  resource_class: << parameters.resource_class >>
+
+steps:
+  - load_workspace
+  - restore_gradle_cache
+  - run:
+      name: Run screenshot tests
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/run_screenshot_tests.sh)>>
+  - run:
+      name: Save screenshot test results
+      command: <<include(scripts/save_unit_tests_results.sh)>>
+      when: always
+  - store_test_results:
+      path: ~/test-results/unit-tests
