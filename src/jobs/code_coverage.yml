@@ -6,14 +6,10 @@ executor:
 
 steps:
   - load_workspace
-  - run:
-      name: Check whether unit tests or ui tests are generated
-      command: <<include(scripts/check_generated_test_reports.sh)>>
-  - generate_gradle_cache_key
   - restore_gradle_cache
   - run:
       name: Generate code coverage (Jacoco)
-      command: ./gradlew generateCodeCoverage
+      command: <<include(scripts/generate_code_coverage.sh)>>
   - persist_to_workspace:
       root: ~/
       paths: "src/**/build/reports/jacoco/jacoco.xml"
