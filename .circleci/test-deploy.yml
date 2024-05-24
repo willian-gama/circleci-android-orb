@@ -33,6 +33,7 @@ jobs:
       - android-ci/persist_workspace
       - android-ci/save_gradle_cache
       - android-ci/restore_gradle_cache
+      - android-ci/setup
 
 workflows:
   test-deploy:
