@@ -32,7 +32,6 @@ jobs:
       - android-ci/decode_keystore
       - android-ci/load_workspace
       - android-ci/persist_workspace
-      - android-ci/restore_and_save_gems_cache
       - android-ci/restore_gradle_cache
       - android-ci/save_gradle_cache
 
