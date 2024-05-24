@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./gradlew assembleDebug appDistributionUploadDebug
+./gradlew assembleRelease appDistributionUploadRelease
