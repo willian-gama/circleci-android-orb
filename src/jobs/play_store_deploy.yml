@@ -6,42 +6,32 @@ executor:
 
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
-  - restore_gems_cache
-  - android/restore-build-cache
+  - restore_and_save_gems_cache
+  - decode_keystore
   - run:
       name: New version check
       command: bundle exec fastlane update_check
   - run:
-      name: Decode base64 keystore
-      command: <<include(scripts/decode_keystore.sh)>>
-  - run:
-      name: Fastlane meta data check
+      name: Fastlane metadata check
       command: bundle exec fastlane metadata_check
   - run:
-      name: Commit auto generate metadata if needed
+      name: Commit auto generated metadata if needed
       command: <<include(scripts/metadata_commit_check.sh)>>
   - run:
-      name: Git fetch
-      command: git fetch
-  - run:
-      name: Deploy bundle to playstore
-      command: bundle exec fastlane deploy_bundle
+      name: Deploy bundle to Google play store
+      command: bundle exec fastlane upload_bundle_to_google_play_store
   - run:
       name: Create github release
       command: bundle exec fastlane create_github_release
   - run:
       name: Set latest tag for circle message
       command: bundle exec fastlane set_version_tag
-  - slack/notify:
-      channel: team-mobile-android
-      event: fail
-      template: basic_fail_1
+  - slack_notify_failure_event
   - run:
       name: Prepare slack notification
       command: <<include(scripts/prepare_slack_notification.sh)>>
   - slack/notify:
-      channel: squad-core-mobile
+      channel: android-test-deploy
       event: pass
-      template: SLACK_BUILD_UPLOADED_TEMPLATE
+      template: UPLOAD_BUILD_TEMPLATE
