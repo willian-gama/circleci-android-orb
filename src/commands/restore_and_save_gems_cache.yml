@@ -1,9 +1,6 @@
 description: Restore and save ruby (fastlane) cache to speed up the build process.
 
 steps:
-  - run:
-      name: Clone fastlane config
-      command: <<include(scripts/clone_fastlane_config.sh)>>
   - restore_cache:
       name: Restore gems cache
       key: gems-{{ checksum "Gemfile.lock" }}
