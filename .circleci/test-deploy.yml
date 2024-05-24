@@ -29,11 +29,14 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
+      - android-ci/decode_keystore
+      - android-ci/generate_user_properties
       - android-ci/load_workspace
       - android-ci/persist_workspace
-      - android-ci/save_gradle_cache
+      - android-ci/restore_and_save_gems_cache
       - android-ci/restore_gradle_cache
-      - android-ci/setup
+      - android-ci/save_gradle_cache
+      - android-ci/slack_notify_failure_event
 
 workflows:
   test-deploy:
