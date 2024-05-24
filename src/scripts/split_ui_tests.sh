@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SPLIT_UI_TEST_CLASS_NAMES=$(
-  circleci tests glob "**/src/androidTest/**/*Test.kt" "**/src/androidTest/**/*Test.java" |
+  circleci tests glob "**/androidTest/**/*Test.kt" "**/androidTest/**/*Test.java" |
   sed "s@/@.@g" |
   sed "s/src.androidTest.kotlin.//" | sed "s/src.androidTest.java.//" |
   sed "s/.kt//" | sed "s/.java//" |
