@@ -12,7 +12,10 @@ usage:
         - automation/android_setup
         - automation/unit_tests:
             build_variant: debug
-            run_screenshot_tests: true
+            requires:
+              - automation/android_setup
+        - automation/screenshot_tests:
+            build_variant: debug
             requires:
               - automation/android_setup
         - automation/ui_tests:
