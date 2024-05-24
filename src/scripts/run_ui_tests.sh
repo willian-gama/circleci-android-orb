@@ -6,7 +6,8 @@ run_ui_tests_with_retry() {
   TRIES=1
   until [ $TRIES -gt "$MAX_TRIES" ]; do
     echo "Starting test attempt $TRIES with command $1 $2"
-    ./gradlew "$1" "$2" && break
+    # shellcheck disable=SC2086 # Do not expand gradle command intentionnally.
+    ./gradlew $1 && break
     TRIES=$((TRIES+1))
     sleep "$RETRY_INTERVAL"
   done
@@ -42,7 +43,10 @@ group_ui_tests_per_module() {
         }
       }' ORS=","
    )
-   run_ui_tests_with_retry "$MODULE:connected${BUILD_VARIANT}AndroidTest" "-Pandroid.testInstrumentationRunnerArguments.class=$UI_TEST_CLASS_NAMES"
+
+   if [ -n "$UI_TEST_CLASS_NAMES" ]; then
+      run_ui_tests_with_retry "$MODULE:connected${BUILD_VARIANT}AndroidTest -Pandroid.testInstrumentationRunnerArguments.class=$UI_TEST_CLASS_NAMES"
+   fi
   done
 }
 
