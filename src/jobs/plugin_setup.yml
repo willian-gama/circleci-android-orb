@@ -7,10 +7,9 @@ executor:
 steps:
   - checkout
   - generate_user_properties
-  - generate_gradle_cache_key
   - restore_gradle_cache
   - run:
       name: Download gradle dependencies
-      command: ./gradlew dependencies
+      command: <<include(scripts/download_plugin_dependencies.sh)>>
   - save_gradle_cache
   - persist_workspace
