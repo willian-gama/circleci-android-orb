@@ -6,9 +6,7 @@ executor:
 
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
-  - android/restore-build-cache
   - run:
       name: Analyze on SonarCloud
-      command: ./gradlew sonar
+      command: <<include(scripts/upload_to_sonar.sh)>>
