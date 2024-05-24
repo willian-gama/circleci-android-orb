@@ -1,4 +1,4 @@
-description: Run ui tests.
+description: Run ui tests
 
 executor:
   name: android_executor
@@ -10,16 +10,25 @@ parameters:
     description: "Define build variant such as: debug, fullDebug"
     enum: ["debug", "fullDebug"]
 
+  parallelism:
+    description: Circleci machines/containers to use for load balancing
+    type: integer
+    default: 1
+
+parallelism: << parameters.parallelism >>
+
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
-  - android/restore-build-cache
-  - android/accept-licenses
   - android/create-avd:
       avd-name: TestAVD
       install: true
       system-image: system-images;android-33;google_apis;x86_64
+      additional-args: --device pixel_3a_xl
+  - android/accept-licenses
+  - run:
+      name: Split ui tests
+      command: <<include(scripts/split_ui_tests.sh)>>
   - run:
       name: Prepare assemble ui command
       environment:
@@ -28,20 +37,21 @@ steps:
   - android/start-emulator:
       avd-name: TestAVD
       no-window: true
+      restore-gradle-cache-post-emulator-launch: false
       post-emulator-launch-assemble-command: ./gradlew $UI_ASSEMBLE_COMMAND
-  - when:
-      condition:
-        equal: [ "debug", << parameters.build_variant >> ]
-      steps:
-        - run_ui_tests:
-            test_command: connectedDebugAndroidTest
-  - when:
-      condition:
-        equal: [ "fullDebug", << parameters.build_variant >> ]
-      steps:
-        - run_ui_tests:
-            test_command: connectedFullDebugAndroidTest
-  - android/save-build-cache
+  - run:
+      name: Run ui tests
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+        MAX_TRIES: 3
+        RETRY_INTERVAL: 5
+      command: <<include(scripts/run_ui_tests.sh)>>
+      no_output_timeout: 10m
+  - run:
+      name: Save ui test code coverage reports
+      environment:
+        CODE_COVERAGE_PATH: code_coverage/.*coverage.ec
+      command: <<include(scripts/save_code_coverage_reports.sh)>>
   - persist_to_workspace:
       root: ~/
       paths:
