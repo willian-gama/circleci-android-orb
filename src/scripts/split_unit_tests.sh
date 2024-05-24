@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SPLIT_UNIT_TEST_CLASS_NAMES=$(
-  circleci tests glob "**/test/**/*Test.kt" "**/test/**/*Test.java" |
+  circleci tests glob "**/src/test/**/*Test.kt" "**/src/test/**/*Test.java" |
   sed "s@/@.@g" |
   sed "s/src.test.kotlin.//" | sed "s/src.test.java.//" |
   sed "s/.kt//" | sed "s/.java//" |
