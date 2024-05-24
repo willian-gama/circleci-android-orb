@@ -7,4 +7,6 @@ if [ "$(git status fastlane/metadata/ --porcelain)" ]; then
   git add fastlane/metadata/*
   git commit -m "[skip ci] Updated metadata"
   git push origin "$CIRCLE_BRANCH"
+else
+  echo "Skip metadata updates"
 fi

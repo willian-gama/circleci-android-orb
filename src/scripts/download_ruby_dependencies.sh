@@ -1,4 +1,5 @@
 #!/bin/bash
 
 gem install bundler
-bundle check || bundle install --path vendor/bundle
+bundle config set path "vendor/bundle"
+bundle check || bundle install
