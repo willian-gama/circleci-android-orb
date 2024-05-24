@@ -21,10 +21,9 @@ workflows:
           filters: *filters
       - orb-tools/review:
           filters: *filters
-          exclude: "RC006,RC009"
+          exclude: RC006
       - shellcheck/check:
           filters: *filters
-          exclude: SC1090
       - orb-tools/publish:
           context: orb-publishing
           orb_name: willian-gama/android-ci
@@ -40,9 +39,9 @@ workflows:
           filters: *release-filters
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
+          orb_name: android-ci
+          vcs_type: github
           pipeline_number: << pipeline.number >>
-          vcs_type: << pipeline.project.type >>
-          orb_name: android-automation
           requires:
             - orb-tools/lint
             - orb-tools/pack
