@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# HEADS-UP: Not being used
+
 set -euo pipefail
 # File path to the build.gradle
 file="build.gradle"

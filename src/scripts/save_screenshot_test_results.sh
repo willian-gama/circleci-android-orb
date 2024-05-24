@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# CURRENTLY NOT USED
+# HEADS-UP: Not being used
 
 mkdir -p ~/test-results/screenshots
 
