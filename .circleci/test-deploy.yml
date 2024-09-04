@@ -35,6 +35,16 @@ jobs:
       - android-ci/restore_gradle_cache
       - android-ci/save_gradle_cache
 
+  bump_orb_version:
+    docker:
+      - image: cimg/base:2024.07
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Bump orb version
+          command: src/scripts/create_tag.sh
+
 workflows:
   test-deploy:
     jobs:
@@ -56,3 +66,9 @@ workflows:
             - orb-tools/pack
             - command-test
           filters: *release-filters
+      - bump_orb_version:
+          requires:
+            - command-test
+          filters:
+            branches:
+              only: main

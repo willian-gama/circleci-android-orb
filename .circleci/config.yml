@@ -12,17 +12,6 @@ release-filters: &release-filters
   tags:
     ignore: /.*/
 
-jobs:
-  bump_orb_version:
-    docker:
-      - image: cimg/base:2024.07
-    resource_class: medium
-    steps:
-      - checkout
-      - run:
-          name: Bump orb version
-          command: src/scripts/create_tag.sh
-
 workflows:
   lint-and-pack:
     jobs:
@@ -58,9 +47,3 @@ workflows:
             - orb-tools/review
             - shellcheck/check
           filters: *filters
-      - bump_orb_version:
-          requires:
-            - orb-tools/publish
-          filters:
-            branches:
-              only: main
