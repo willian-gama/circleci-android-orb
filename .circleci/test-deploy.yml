@@ -52,16 +52,17 @@ workflows:
       # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
       - command-test:
           filters: *filters
-      # The orb must be re-packed for publishing, and saved to the workspace.
-      - orb-tools/pack:
-          filters: *release-filters
       - bump_orb_version:
           requires:
-            - orb-tools/pack
             - command-test
           filters:
             branches:
               only: main
+      # The orb must be re-packed for publishing, and saved to the workspace.
+      - orb-tools/pack:
+          filters: *release-filters
+          requires:
+            - bump_orb_version
       - orb-tools/publish:
           context: orb-publishing
           orb_name: willian-gama/android-ci
@@ -70,5 +71,5 @@ workflows:
           enable_pr_comment: false
           # Ensure this job requires all test jobs and the pack job.
           requires:
-            - bump_orb_version
+            - orb-tools/pack
           filters: *release-filters
