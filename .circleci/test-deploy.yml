@@ -52,12 +52,6 @@ workflows:
       # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
       - command-test:
           filters: *filters
-      - bump_orb_version:
-          requires:
-            - command-test
-          filters:
-            branches:
-              only: main
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
           filters: *release-filters
