@@ -6,8 +6,7 @@ orbs:
   # The orb definition is intentionally not included here. It will be injected into the pipeline.
   <orb-name>: {}
 
-# Use this tag to ensure test jobs always run,
-# even though the downstream publish job will only run on release tags.
+# Use this tag to ensure test jobs always run, even though the downstream publish job will only run on release tags.
 filters: &filters
   tags:
     only: /.*/
@@ -20,8 +19,7 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 jobs:
-  # Create jobs to test the commands of your orbs.
-  # You may want to add additional validation steps to ensure the commands are working as expected.
+  # Create jobs to test the commands of your orbs. You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
     docker:
       - image: cimg/base:2024.07
