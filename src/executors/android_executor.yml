@@ -10,8 +10,8 @@ working_directory: ~/src
 
 environment:
   TERM: dumb
-  _JAVA_OPTIONS: "-Xms3g -Xmx3g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
-  GRADLE_OPTS: '-Dorg.gradle.parallel=3 -Dorg.gradle.caching=true -Dorg.gradle.configureondemand=true -Dorg.gradle.workers.max=3 -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs="-Xms2g -Xmx2g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"'
+  _JAVA_OPTIONS: "-Xms3g -Xmx6g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  GRADLE_OPTS: '-Dorg.gradle.parallel=true -Dorg.gradle.caching=true -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=out-of-process -Dorg.gradle.jvmargs="-Xms3g -Xmx6g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"'
 
 machine:
   image: android:2024.01.1
