@@ -35,6 +35,16 @@ jobs:
       - android-ci/restore_gradle_cache
       - android-ci/save_gradle_cache
 
+  bump_orb_version:
+    docker:
+      - image: cimg/base:2024.07
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Bump orb version
+          command: bash src/scripts/create_tag.sh
+
 workflows:
   test-deploy:
     jobs:
@@ -45,6 +55,13 @@ workflows:
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
           filters: *release-filters
+      - bump_orb_version:
+          requires:
+            - orb-tools/pack
+            - command-test
+          filters:
+            branches:
+              only: main
       - orb-tools/publish:
           context: orb-publishing
           orb_name: willian-gama/android-ci
@@ -53,6 +70,5 @@ workflows:
           enable_pr_comment: false
           # Ensure this job requires all test jobs and the pack job.
           requires:
-            - orb-tools/pack
-            - command-test
+            - bump_orb_version
           filters: *release-filters
