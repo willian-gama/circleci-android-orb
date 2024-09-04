@@ -60,14 +60,15 @@ workflows:
               only: main
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
-          requires:
-            - bump_orb_version
+          filters: *release-filters
       - orb-tools/publish:
           context: orb-publishing
           orb_name: willian-gama/android-ci
           vcs_type: github
           pub_type: production
           enable_pr_comment: false
+          filters: *release-filters
           # Ensure this job requires all test jobs and the pack job.
           requires:
             - orb-tools/pack
+            - command-test
