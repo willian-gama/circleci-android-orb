@@ -12,10 +12,9 @@ current_version=$(git describe --tags --abbrev=0)
 IFS='.' read -r major minor patch <<< "$current_version"
 new_version="$major.$minor.$((patch + 1))"
 
-if ! git tag "$new_version" 2>/dev/null; then
-  echo "Error when creating git tag: $new_version"
-  exit 1
-else
+if git tag "$new_version"; then
   echo "Bump version from $current_version to $new_version"
   git push origin "$new_version"
+else
+  exit 1
 fi
