@@ -10,4 +10,4 @@ steps:
   - decode_keystore
   - run:
       name: Upload to Firebase App Distribution
-      command: <<include(scripts/upload_to_firebase_app_distribution.sh)>>
+      command: <<include(scripts/run_firebase_app_distribution.sh)>>

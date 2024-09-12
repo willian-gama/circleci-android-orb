@@ -10,6 +10,6 @@ steps:
   - restore_gradle_cache
   - run:
       name: Download gradle dependencies
-      command: <<include(scripts/download_plugin_dependencies.sh)>>
+      command: <<include(scripts/run_download_plugin_dependencies.sh)>>
   - save_gradle_cache
   - persist_workspace

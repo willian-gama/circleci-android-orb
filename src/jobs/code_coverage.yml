@@ -9,7 +9,7 @@ steps:
   - restore_gradle_cache
   - run:
       name: Generate code coverage (Jacoco)
-      command: <<include(scripts/generate_code_coverage.sh)>>
+      command: <<include(scripts/run_code_coverage.sh)>>
   - persist_to_workspace:
       root: ~/
       paths: "src/**/build/reports/jacoco/jacoco.xml"

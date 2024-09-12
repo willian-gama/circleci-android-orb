@@ -30,7 +30,7 @@ steps:
       when: always
   - run:
       name: Save screenshot image failures
-      command: <<include(scripts/save_screenshot_failures.sh)>>
+      command: <<include(scripts/save_screenshot_tests_failures.sh)>>
       when: on_fail
   - store_test_results:
       path: ~/test-results

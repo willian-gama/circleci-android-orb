@@ -10,6 +10,6 @@ steps:
   - restore_gradle_cache
   - run:
       name: Download android dependencies
-      command: <<include(scripts/download_android_dependencies.sh)>>
+      command: <<include(scripts/run_download_android_dependencies.sh)>>
   - save_gradle_cache
   - persist_workspace

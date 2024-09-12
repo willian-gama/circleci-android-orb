@@ -41,7 +41,7 @@ jobs:
       - checkout
       - run:
           name: Bump orb version
-          command: src/scripts/create_tag.sh
+          command: src/scripts/git_create_tag.sh
 
 workflows:
   test-deploy:

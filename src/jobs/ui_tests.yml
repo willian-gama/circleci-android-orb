@@ -25,31 +25,31 @@ steps:
       command: <<include(scripts/split_ui_tests.sh)>>
   - run:
       name: Define AVD name
-      command: <<include(scripts/define_avd_name.sh)>>
+      command: <<include(scripts/avd_define_name.sh)>>
   - run:
       name: Create AVD
       environment:
         AVD_NAME: $AVD_NAME
         AVD_SYSTEM_IMAGE: system-images;android-34;google_apis;x86_64
         AVD_DEVICE: pixel_3a_xl
-      command: <<include(scripts/create_avd.sh)>>
+      command: <<include(scripts/avd_create.sh)>>
   - run:
       name: Prepare assemble ui command
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
-      command: <<include(scripts/prepare_ui_assemble_command.sh)>>
+      command: <<include(scripts/prepare_ui_test_assemble_command.sh)>>
   - run:
       name: Start android emulator in background
       background: true
       environment:
         AVD_NAME: $AVD_NAME
-      command: <<include(scripts/start_android_emulator.sh)>>
+      command: <<include(scripts/avd_start.sh)>>
   - run:
       name: Run assemble command
       command: ./gradlew $UI_ASSEMBLE_COMMAND
   - run:
       name: Wait for the emulator to start
-      command: <<include(scripts/wait_for_the_emulator_to_start.sh)>>
+      command: <<include(scripts/avd_wait_to_start.sh)>>
   - run:
       name: Run ui tests
       environment:

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # https://developer.android.com/tools/sdkmanager
-sdkmanager --licenses
-sdkmanager --update
+yes | sdkmanager --licenses
+yes | sdkmanager --update
 sdkmanager "$AVD_SYSTEM_IMAGE"
 
 # https://developer.android.com/tools/avdmanager

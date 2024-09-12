@@ -6,7 +6,7 @@ steps:
       key: gems-{{ checksum "Gemfile.lock" }}
   - run:
       name: Download ruby dependencies (fastlane)
-      command: <<include(scripts/download_ruby_dependencies.sh)>>
+      command: <<include(scripts/run_download_ruby_dependencies.sh)>>
   - save_cache:
       name: Saving gems cache
       key: gems-{{ checksum "Gemfile.lock" }}
