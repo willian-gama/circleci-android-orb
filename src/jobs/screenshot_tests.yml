@@ -28,5 +28,11 @@ steps:
       name: Save screenshot test results
       command: <<include(scripts/save_unit_tests_results.sh)>>
       when: always
+  - run:
+      name: Save screenshot image failures
+      command: <<include(scripts/save_screenshot_failures.sh)>>
+      when: on_fail
   - store_test_results:
-      path: ~/test-results/unit-tests
+      path: ~/test-results
+  - store_artifacts:
+      path: ~/test-results/screenshots
