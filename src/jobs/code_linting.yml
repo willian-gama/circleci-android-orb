@@ -8,11 +8,14 @@ parameters:
   build_variant:
     type: enum
     description: "Define build variant such as: debug, fullDebug."
-    enum: ["debug", "fullDebug"]
+    enum: [debug, fullDebug]
 
 steps:
   - load_workspace
   - restore_gradle_cache
+  - run:
+      name: Check code linting baselines
+      command: <<include(scripts/check_code_linting_baselines.sh)>>
   - run:
       name: Run code linting tools
       environment:
@@ -25,3 +28,4 @@ steps:
         - "src/**/build/reports/detekt/detekt.xml"
         - "src/**/build/reports/lint-results-debug.xml"
         - "src/**/build/reports/lint-results-*Debug.xml"
+        - "code_linting_output"
