@@ -12,3 +12,4 @@ display:
 orbs:
   android: circleci/android@2.5.0
   slack: circleci/slack@4.1
+  github-client: circleci/github-cli@2.4.0
