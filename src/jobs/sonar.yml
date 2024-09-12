@@ -10,3 +10,6 @@ steps:
   - run:
       name: Analyze on SonarCloud
       command: <<include(scripts/upload_to_sonar.sh)>>
+  - run:
+      name: Check code linting outputs
+      command: <<include(scripts/check_code_linting_outputs.sh)>>
