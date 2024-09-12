@@ -43,10 +43,10 @@ steps:
       root: ~/
       paths:
         - "src/**/build/outputs/unit_test_code_coverage"
-         # Java classes when available
+        # Java classes when available
         - "src/**/build/intermediates/javac/debug/classes"
         - "src/**/build/intermediates/javac/*Debug/classes"
-         # Kotlin classes when available
+        # Kotlin classes when available
         - "src/**/build/tmp/kotlin-classes/debug"
         - "src/**/build/tmp/kotlin-classes/*Debug"
   - run:
