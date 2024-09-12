@@ -1,0 +1,13 @@
+description: Auto sync PRs from the target branch
+
+executor:
+  name: android_executor
+  resource_class: medium
+
+steps:
+  - checkout
+  - github-client/setup:
+      token: GITHUB_PRS_PAT
+  - run:
+      name: Auto sync PRs
+      command: <<include(scripts/auto_sync_prs.sh)>>
