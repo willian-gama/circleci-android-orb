@@ -1,20 +1,10 @@
 description: Initial setup to download android and ruby (fastlane) dependencies.
 
 parameters:
-  resource_class:
-    type: enum
-    description: Configure the executor resource class
-    enum: [medium, large, xlarge]
-    default: large
-
   build_variant:
     type: enum
     description: "Define build variant such as: debug, fullDebug"
     enum: [debug, fullDebug]
-
-executor:
-  name: android_executor
-  resource_class: << parameters.resource_class >>
 
 steps:
   - checkout

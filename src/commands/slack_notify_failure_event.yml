@@ -1,7 +1,0 @@
-description: Send a Slack notification on the defined channel.
-
-steps:
-  - slack/notify:
-      channel: team-mobile-android
-      event: fail
-      template: basic_fail_1
