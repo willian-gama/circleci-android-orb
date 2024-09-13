@@ -26,6 +26,7 @@ steps:
   - run:
       name: Define AVD name
       command: <<include(scripts/avd_define_name.sh)>>
+  - android/accept-licenses
   - run:
       name: Create AVD
       environment:
