@@ -1,6 +1,11 @@
 description: Restore gradle cache to speed up the build process.
 
 steps:
+  - run:
+      name: Generate gradle cache key
+      environment:
+        FILE_NAME: gradle_checksum.txt
+      command: <<include(scripts/generate_gradle_checksum.sh)>>
   - restore_cache:
       name: Restore gradle cache
       key: gradle-{{ checksum "gradle_checksum.txt" }}

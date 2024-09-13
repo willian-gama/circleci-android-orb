@@ -19,17 +19,9 @@ executor:
 steps:
   - checkout
   - generate_user_properties
-  - generate_gradle_cache_key
   - restore_gradle_cache
-  # - android/restore-build-cache
   - run:
       name: Download android dependencies
-      command: <<include(scripts/download_android_dependencies.sh)>>
-  # - run:
-  #     name: Assemble build
-  #     environment:
-  #       BUILD_VARIANT: << parameters.build_variant >>
-  #     command: <<include(scripts/assemble_build.sh)>>
+      command: <<include(scripts/run_download_android_dependencies.sh)>>
   - save_gradle_cache
-  # - android/save-build-cache
   - persist_workspace

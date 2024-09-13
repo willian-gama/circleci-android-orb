@@ -25,9 +25,10 @@ parallelism: << parameters.parallelism >>
 
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
-  - android/restore-build-cache
+  - run:
+      name: Split unit tests
+      command: <<include(scripts/split_unit_tests.sh)>>
   - run:
       name: Split unit tests
       environment:
@@ -38,14 +39,19 @@ steps:
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
       command: <<include(scripts/run_unit_tests.sh)>>
+  - run:
+      name: Save unit test code coverage reports
+      environment:
+        CODE_COVERAGE_PATH: unit_test_code_coverage/.*UnitTest.exec
+      command: <<include(scripts/save_code_coverage_reports.sh)>>
   - persist_to_workspace:
       root: ~/
       paths:
         - "src/**/build/outputs/unit_test_code_coverage"
-         # Java classes when available
+        # Java classes when available
         - "src/**/build/intermediates/javac/debug/classes"
         - "src/**/build/intermediates/javac/*Debug/classes"
-         # Kotlin classes when available
+        # Kotlin classes when available
         - "src/**/build/tmp/kotlin-classes/debug"
         - "src/**/build/tmp/kotlin-classes/*Debug"
   - run:

@@ -12,8 +12,10 @@ parameters:
 
 steps:
   - load_workspace
-  - generate_gradle_cache_key
   - restore_gradle_cache
+  - run:
+      name: Check code linting baselines
+      command: <<include(scripts/check_code_linting_baselines.sh)>>
   - run:
       name: Run code linting tools
       environment:
@@ -26,3 +28,4 @@ steps:
         - "src/**/build/reports/detekt/detekt.xml"
         - "src/**/build/reports/lint-results-debug.xml"
         - "src/**/build/reports/lint-results-*Debug.xml"
+        - "code_linting_outputs"
