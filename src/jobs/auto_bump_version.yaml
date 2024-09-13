@@ -1,0 +1,11 @@
+description: Auto bump version
+
+executor:
+  name: android_executor
+  resource_class: medium
+
+steps:
+  - load_workspace
+  - run:
+      name: Auto bump the version number
+      command: <<include(scripts/auto_bump_version.sh)>>
