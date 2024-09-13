@@ -28,4 +28,4 @@ steps:
         - "src/**/build/reports/detekt/detekt.xml"
         - "src/**/build/reports/lint-results-debug.xml"
         - "src/**/build/reports/lint-results-*Debug.xml"
-        - "code_linting_output"
+        - "code_linting_outputs"

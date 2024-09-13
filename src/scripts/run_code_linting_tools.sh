@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUTPUT_FOLDER=~/code_linting_output
+OUTPUT_FOLDER=~/code_linting_outputs
 
 if [ ! -d "$OUTPUT_FOLDER" ]; then
   mkdir "$OUTPUT_FOLDER"

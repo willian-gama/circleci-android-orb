@@ -1,7 +1,7 @@
 #!/bin/bash
 
 KOTLIN_FILE="src/.*/*.kt:"
-OUTPUT_FOLDER=~/code_linting_output
+OUTPUT_FOLDER=~/code_linting_outputs
 OUTPUT_FILES=(
   "$OUTPUT_FOLDER/ktlint_output.txt"
   "$OUTPUT_FOLDER/detekt_output.txt"
