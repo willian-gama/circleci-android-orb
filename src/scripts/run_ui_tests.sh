@@ -40,7 +40,7 @@ group_ui_tests_per_module() {
     )
 
     if [ -n "$ui_test_class_names" ]; then
-      run_ui_tests_with_retry "$module:$ui_test_command" "-Pandroid.testInstrumentationRunnerArguments.class=$ui_test_class_names"
+      run_ui_tests_with_retry "${module//\./:}:$ui_test_command" "-Pandroid.testInstrumentationRunnerArguments.class=$ui_test_class_names"
     else
       echo "No UI test found for module: $module"
     fi

@@ -30,7 +30,7 @@ group_unit_tests_per_module() {
     )
 
     if [ -n "$unit_test_class_names" ]; then
-      run_unit_tests "$module:$unit_test_command $unit_test_class_names"
+      run_unit_tests "${module//\./:}:$unit_test_command $unit_test_class_names"
     else
       echo "No unit test found for module: $module"
     fi
