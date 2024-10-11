@@ -35,6 +35,7 @@ group_ui_tests_per_module() {
   for module in "${modules[@]}"; do
     ui_test_class_names=$(
       echo "$SPLIT_UI_TEST_CLASS_NAMES" |
+      tr ' ' '\n' |
       awk "/^$module\./" |
       awk -F "^$module." '{ print($2) }' ORS=","
     )
