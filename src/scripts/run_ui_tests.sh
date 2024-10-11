@@ -1,19 +1,19 @@
 #!/bin/bash
 
-UI_TEST_FAILURE=0
+ui_test_failure=0
 
 run_ui_tests_with_retry() {
-  TRIES=1
-  until [ $TRIES -gt "$MAX_TRIES" ]; do
-    echo "Starting test attempt $TRIES with command $1 $2"
+  tries=1
+  until [ $tries -gt "$MAX_TRIES" ]; do
+    echo "Starting test attempt $tries with command $1 $2"
     ./gradlew "$1" "$2" && break
-    TRIES=$((TRIES+1))
+    tries=$((tries+1))
     sleep "$RETRY_INTERVAL"
   done
 
-  if [ $TRIES -gt "$MAX_TRIES" ]; then
+  if [ $tries -gt "$MAX_TRIES" ]; then
     echo "Max tries reached ($MAX_TRIES)"
-    UI_TEST_FAILURE=1
+    ui_test_failure=1
   fi
 }
 
@@ -50,7 +50,7 @@ group_ui_tests_per_module() {
 
 group_ui_tests_per_module
 
-if [ "$UI_TEST_FAILURE" -eq 1 ]; then
+if [ "$ui_test_failure" -eq 1 ]; then
   echo "UI test failed"
   exit 1
 fi
