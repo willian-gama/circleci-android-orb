@@ -5,9 +5,8 @@ UI_TEST_FAILURE=0
 run_ui_tests_with_retry() {
   TRIES=1
   until [ $TRIES -gt "$MAX_TRIES" ]; do
-    echo "Starting test attempt $TRIES with command $1"
-    # shellcheck disable=SC2086 # Do not expand gradle command intentionally because it has spaces.
-    ./gradlew $1 && break
+    echo "Starting test attempt $TRIES with command $1 $2"
+    ./gradlew "$1" "$2" && break
     TRIES=$((TRIES+1))
     sleep "$RETRY_INTERVAL"
   done
@@ -19,8 +18,8 @@ run_ui_tests_with_retry() {
 }
 
 group_ui_tests_per_module() {
-  UI_TEST_COMMAND=connected${BUILD_VARIANT}AndroidTest
-  MODULES=$(
+  ui_test_command=connected${BUILD_VARIANT}AndroidTest
+  modules=$(
     echo "$SPLIT_UI_TEST_CLASS_NAMES" |
     awk '{
       for (i=1; i<=NF; i++) {
@@ -31,19 +30,19 @@ group_ui_tests_per_module() {
     awk '!visited[$0]++' ORS=" "
   )
 
-  read -r -a MODULES <<< "$MODULES"
+  IFS=' ' read -r -a modules <<< "$modules"
 
-  for MODULE in "${MODULES[@]}"; do
-    UI_TEST_CLASS_NAMES=$(
+  for module in "${modules[@]}"; do
+    ui_test_class_names=$(
       echo "$SPLIT_UI_TEST_CLASS_NAMES" |
-      awk "/^$MODULE\./" |
-      awk -F "^$MODULE." '{
-        print($2)
-      }' ORS=","
+      awk "/^$module\./" |
+      awk -F "^$module." '{ print($2) }' ORS=","
     )
 
-    if [ -n "$UI_TEST_CLASS_NAMES" ]; then
-      run_ui_tests_with_retry "${MODULE//\./:}:$UI_TEST_COMMAND -Pandroid.testInstrumentationRunnerArguments.class=$UI_TEST_CLASS_NAMES"
+    if [ -n "$ui_test_class_names" ]; then
+      run_ui_tests_with_retry "$module:$ui_test_command" "-Pandroid.testInstrumentationRunnerArguments.class=$ui_test_class_names"
+    else
+      echo "No UI test found for module: $module"
     fi
   done
 }
