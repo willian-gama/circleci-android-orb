@@ -20,7 +20,6 @@ steps:
       name: Auto-formatting kotlin files with ktlint
       command: <<include(scripts/run_ktlint_auto_formatting.sh)>>
   - run:
-  - run:
       name: Run code linting tools
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
