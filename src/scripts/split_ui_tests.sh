@@ -20,5 +20,9 @@ for test_class in $test_class_names; do
   fi
 done
 
-echo "export SPLIT_UI_TEST_CLASS_NAMES='${split_ui_test_class_names[*]}'" >> "$BASH_ENV"
-cat "$BASH_ENV"
+if [ ${#split_ui_test_class_names[@]} -gt 0 ]; then
+  echo "export SPLIT_UI_TEST_CLASS_NAMES='${split_ui_test_class_names[*]}'" >> "$BASH_ENV"
+  cat "$BASH_ENV"
+else
+  echo "No ui test classes found"
+fi
