@@ -7,8 +7,8 @@ run_unit_tests() {
 }
 
 group_unit_tests_per_module() {
-  UNIT_TEST_COMMAND=test${BUILD_VARIANT}UnitTest
-  MODULES=$(
+  unit_test_command=test${BUILD_VARIANT}UnitTest
+  modules=$(
     echo "$SPLIT_UNIT_TEST_CLASS_NAMES" |
     awk '{
       for (i=1; i<=NF; i++) {
@@ -19,19 +19,20 @@ group_unit_tests_per_module() {
     awk '!visited[$0]++' ORS=" "
   )
 
-  read -r -a MODULES <<< "$MODULES"
+  IFS=' ' read -r -a modules <<< "$modules"
 
-  for MODULE in "${MODULES[@]}"; do
-    UNIT_TEST_CLASS_NAMES=$(
+  for module in "${modules[@]}"; do
+    unit_test_class_names=$(
       echo "$SPLIT_UNIT_TEST_CLASS_NAMES" |
-      awk "/^$MODULE\./" |
-      awk -F "^$MODULE." '{
-        print("--tests", $2)
-      }' ORS=" "
+      tr ' ' '\n' |
+      awk "/^$module\./" |
+      awk -F "^$module." '{ print("--tests", $2) }' ORS=" "
     )
 
-    if [ -n "$UNIT_TEST_CLASS_NAMES" ]; then
-      run_unit_tests "${MODULE//\./:}:$UNIT_TEST_COMMAND $UNIT_TEST_CLASS_NAMES"
+    if [ -n "$unit_test_class_names" ]; then
+      run_unit_tests "${module//\./:}:$unit_test_command $unit_test_class_names"
+    else
+      echo "No unit test found for module: $module"
     fi
   done
 }
