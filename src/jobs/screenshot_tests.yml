@@ -12,13 +12,25 @@ parameters:
     description: Define build variant such as debug, fullDebug
     enum: [debug, fullDebug]
 
+  parallelism:
+    description: Circleci machines/containers to use for load balancing
+    type: integer
+    default: 1
+
 executor:
   name: android_executor
   resource_class: << parameters.resource_class >>
 
+parallelism: << parameters.parallelism >>
+
 steps:
   - load_workspace
   - restore_gradle_cache
+  - run:
+      name: Split screenshot tests
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/split_screenshot_tests.sh)>>
   - run:
       name: Run screenshot tests
       environment:
