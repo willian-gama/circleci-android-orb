@@ -83,7 +83,7 @@ check_paparazzi_version() {
   fi
 
   if compare_versions "$local_version" "$remote_version" -eq 0; then
-    ./gradlew recordPaparazziDebug
+    ./gradlew cleanRecordPaparazziDebug
     push_screenshots_to_git
   else
     echo "paparazzi version not changed"
