@@ -27,6 +27,9 @@ steps:
   - load_workspace
   - restore_gradle_cache
   - run:
+      name: Regenerate paparazzi screenshots when bumping version
+      command: <<include(scripts/regenerate_screenshot_tests.sh)>>
+  - run:
       name: Split screenshot tests
       environment:
         BUILD_VARIANT: << parameters.build_variant >>
