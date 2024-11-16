@@ -36,20 +36,20 @@ compare_versions() {
 }
 
 push_screenshots_to_git() {
-  if git diff --name-status | grep -qE ".*/test/snapshots/images/.*"; then
+  if [ -z "$(git config --get user.name)" ]; then
+    git config user.name "renovate[bot]"
+  fi
+
+  if [ -z "$(git config --get user.email)" ]; then
+    git config user.email "29139614+renovate[bot]@users.noreply.github.com"
+  fi
+
+  git config --add --bool push.autoSetupRemote true # create a new branch automatically
+  git add "**/test/snapshots/images/*"
+
+  if git diff --cached --name-status | grep -qE ".*/test/snapshots/images/.*"; then
     local commit_message="regenerating screenshot tests"
     echo "$commit_message"
-
-    if [ -z "$(git config --get user.name)" ]; then
-      git config user.name "renovate[bot]"
-    fi
-
-    if [ -z "$(git config --get user.email)" ]; then
-      git config user.email "29139614+renovate[bot]@users.noreply.github.com"
-    fi
-
-    git config --add --bool push.autoSetupRemote true # create a new branch automatically
-    git add "**/test/snapshots/images/*"
 
     if ! git commit -m "$commit_message"; then
       echo "Error when committing the file $FILE"
