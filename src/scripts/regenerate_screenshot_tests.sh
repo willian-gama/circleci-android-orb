@@ -61,7 +61,7 @@ push_screenshots_to_git() {
   fi
 }
 
-check_paparazzi_version() {
+regenerate_paparazzi_screenshots_if_needed() {
   if ! local_file_content=$(cat "$FILE" 2>/dev/null); then
     echo "Local file $FILE could not be found"
     return 1
@@ -90,4 +90,4 @@ check_paparazzi_version() {
   fi
 }
 
-check_paparazzi_version
+regenerate_paparazzi_screenshots_if_needed
