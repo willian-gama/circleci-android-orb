@@ -64,10 +64,7 @@ push_screenshots_to_git() {
 }
 
 regenerate_paparazzi_screenshots_if_needed() {
-  libs=(
-    "paparazzi"
-    "compose-coil"
-  )
+  libs=("paparazzi" "compose-coil")
 
   if ! local_file_content=$(cat "$FILE" 2>/dev/null); then
     echo "Local file $FILE could not be found"
