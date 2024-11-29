@@ -93,7 +93,7 @@ regenerate_paparazzi_screenshots_if_needed() {
       push_screenshots_to_git
       break
     else
-      echo "$lib version not changed"
+      echo "$lib version not changed $local_version"
     fi
   done
 }
