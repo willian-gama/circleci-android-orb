@@ -1,10 +1,5 @@
 #!/bin/bash
 
-libs=(
-  "paparazzi"
-  "compose-coil"
-)
-
 if [ -f "gradle/libs.versions.toml" ]; then
   FILE="gradle/libs.versions.toml"
 elif [ -f "build.gradle" ]; then
@@ -17,6 +12,7 @@ fi
 get_current_version_number() {
   local content="$1"
   local lib="$2"
+
   if [[ "$content" =~ "$lib"\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
     return 0
@@ -68,6 +64,11 @@ push_screenshots_to_git() {
 }
 
 regenerate_paparazzi_screenshots_if_needed() {
+  libs=(
+    "paparazzi"
+    "compose-coil"
+  )
+
   if ! local_file_content=$(cat "$FILE" 2>/dev/null); then
     echo "Local file $FILE could not be found"
     return 1
