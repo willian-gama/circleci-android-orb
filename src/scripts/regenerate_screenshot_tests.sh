@@ -1,5 +1,10 @@
 #!/bin/bash
 
+libs=(
+  "paparazzi"
+  "compose-coil"
+)
+
 if [ -f "gradle/libs.versions.toml" ]; then
   FILE="gradle/libs.versions.toml"
 elif [ -f "build.gradle" ]; then
@@ -11,7 +16,8 @@ fi
 
 get_current_version_number() {
   local content="$1"
-  if [[ "$content" =~ paparazzi\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
+  local lib="$2"
+  if [[ "$content" =~ "$lib"\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
     return 0
   else
@@ -72,22 +78,26 @@ regenerate_paparazzi_screenshots_if_needed() {
     return 1
   fi
 
-  if ! local_version=$(get_current_version_number "$local_file_content"); then
-    echo "Local version could not be found in the $FILE file"
-    return 1
-  fi
+  for lib in "${libs[@]}"; do
+    if ! local_version=$(get_current_version_number "$local_file_content" "$lib"); then
+      echo "$lib: Local version could not be found in the $FILE file"
+      return 1
+    fi
 
-  if ! remote_version=$(get_current_version_number "$remote_file_content"); then
-    echo "Remote version could not be found in the $FILE file"
-    return 1
-  fi
+    if ! remote_version=$(get_current_version_number "$remote_file_content" "$lib"); then
+      echo "$lib: Remote version could not be found in the $FILE file"
+      return 1
+    fi
 
-  if compare_versions "$local_version" "$remote_version" -eq 0; then
-    ./gradlew cleanRecordPaparazziDebug
-    push_screenshots_to_git
-  else
-    echo "paparazzi version not changed"
-  fi
+    if compare_versions "$local_version" "$remote_version" -eq 0; then
+      echo "$lib version has changed from $remote_version to $local_version"
+      ./gradlew cleanRecordPaparazziDebug
+      push_screenshots_to_git
+      break
+    else
+      echo "$lib version not changed"
+    fi
+  done
 }
 
 regenerate_paparazzi_screenshots_if_needed
