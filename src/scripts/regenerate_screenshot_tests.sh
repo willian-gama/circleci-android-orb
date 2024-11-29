@@ -11,7 +11,9 @@ fi
 
 get_current_version_number() {
   local content="$1"
-  if [[ "$content" =~ paparazzi\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
+  local lib="$2"
+
+  if [[ "$content" =~ "$lib"\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
     return 0
   else
@@ -25,8 +27,6 @@ compare_versions() {
 
   IFS="." read -r local_major local_minor local_patch <<< "$local_version"
   IFS="." read -r remote_major remote_minor remote_patch <<< "$remote_version"
-
-  echo "comparing local version: $local_version and remote version $remote_version"
 
   if [ "$local_major" -ne "$remote_major" ] || [ "$local_minor" -ne "$remote_minor" ] || [ "$local_patch" -ne "$remote_patch" ]; then
       return 0
@@ -62,6 +62,8 @@ push_screenshots_to_git() {
 }
 
 regenerate_paparazzi_screenshots_if_needed() {
+  libs=("paparazzi" "compose-coil")
+
   if ! local_file_content=$(cat "$FILE" 2>/dev/null); then
     echo "Local file $FILE could not be found"
     return 1
@@ -72,22 +74,26 @@ regenerate_paparazzi_screenshots_if_needed() {
     return 1
   fi
 
-  if ! local_version=$(get_current_version_number "$local_file_content"); then
-    echo "Local version could not be found in the $FILE file"
-    return 1
-  fi
+  for lib in "${libs[@]}"; do
+    if ! local_version=$(get_current_version_number "$local_file_content" "$lib"); then
+      echo "$lib: Local version could not be found in the $FILE file"
+      return 1
+    fi
 
-  if ! remote_version=$(get_current_version_number "$remote_file_content"); then
-    echo "Remote version could not be found in the $FILE file"
-    return 1
-  fi
+    if ! remote_version=$(get_current_version_number "$remote_file_content" "$lib"); then
+      echo "$lib: Remote version could not be found in the $FILE file"
+      return 1
+    fi
 
-  if compare_versions "$local_version" "$remote_version" -eq 0; then
-    ./gradlew cleanRecordPaparazziDebug
-    push_screenshots_to_git
-  else
-    echo "paparazzi version not changed"
-  fi
+    if compare_versions "$local_version" "$remote_version" -eq 0; then
+      echo "$lib version has changed from $remote_version to $local_version"
+      ./gradlew cleanRecordPaparazziDebug
+      push_screenshots_to_git
+      break
+    else
+      echo "$lib version not changed $local_version"
+    fi
+  done
 }
 
 regenerate_paparazzi_screenshots_if_needed
