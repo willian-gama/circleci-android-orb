@@ -28,8 +28,6 @@ compare_versions() {
   IFS="." read -r local_major local_minor local_patch <<< "$local_version"
   IFS="." read -r remote_major remote_minor remote_patch <<< "$remote_version"
 
-  echo "comparing local version: $local_version and remote version $remote_version"
-
   if [ "$local_major" -ne "$remote_major" ] || [ "$local_minor" -ne "$remote_minor" ] || [ "$local_patch" -ne "$remote_patch" ]; then
       return 0
   else
