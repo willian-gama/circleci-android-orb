@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   # Your orb will be automatically injected here during the pipeline.
   # Reference your orb's jobs and commands below as they will exist when built.
-  orb-tools: circleci/orb-tools@12.1.0
+  orb-tools: circleci/orb-tools@12.3.0
   # The orb definition is intentionally not included here. It will be injected into the pipeline.
   <orb-name>: {}
 
@@ -22,7 +22,7 @@ jobs:
   # Create jobs to test the commands of your orbs. You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
     docker:
-      - image: cimg/base:2024.07
+      - image: cimg/base:2024.12
     working_directory: ~/src
     steps:
       - checkout
@@ -35,7 +35,7 @@ jobs:
 
   bump_orb_version:
     docker:
-      - image: cimg/base:2024.07
+      - image: cimg/base:2024.12
     resource_class: medium
     steps:
       - checkout
