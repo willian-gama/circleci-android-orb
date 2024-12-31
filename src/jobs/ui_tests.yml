@@ -59,6 +59,7 @@ steps:
         RETRY_INTERVAL: 5
       command: <<include(scripts/run_ui_tests.sh)>>
       no_output_timeout: 10m
+  - save_android_cache
   - run:
       name: Save ui test code coverage reports
       environment:

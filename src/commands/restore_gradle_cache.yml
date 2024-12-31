@@ -8,4 +8,6 @@ steps:
       command: <<include(scripts/generate_gradle_checksum.sh)>>
   - restore_cache:
       name: Restore gradle cache
-      key: gradle-{{ checksum "gradle_checksum.txt" }}
+      keys:
+        - gradle-{{ checksum "gradle_checksum.txt" }}
+        - android-gradle-{{ checksum "gradle_checksum.txt" }}
