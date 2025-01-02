@@ -24,9 +24,12 @@ steps:
       name: Split ui tests
       command: <<include(scripts/split_ui_tests.sh)>>
   - run:
-      name: Define AVD name
-      command: <<include(scripts/avd_define_name.sh)>>
+      name: Define AVD emulator
+      command: <<include(scripts/avd_define_emulator.sh)>>
   - android/accept-licenses
+  - restore_cache:
+      name: Restore Avd emulator cache
+      key: avd-emulator-{{ .Environment.AVD_NAME }}-{{ .Environment.AVD_DEVICE }}-{{ .Environment.AVD_SYSTEM_IMAGE }}
   - run:
       name: Create AVD
       environment:
@@ -60,8 +63,8 @@ steps:
       command: <<include(scripts/run_ui_tests.sh)>>
       no_output_timeout: 10m
   - save_cache:
-      name: Save Android Avd cache
-      key: avd-{{ .Environment.AVD_NAME }}-{{ .Environment.AVD_DEVICE }}-{{ .Environment.AVD_SYSTEM_IMAGE }}
+      name: Save Avd emulator cache
+      key: avd-emulator-{{ .Environment.AVD_NAME }}-{{ .Environment.AVD_DEVICE }}-{{ .Environment.AVD_SYSTEM_IMAGE }}
       paths:
         - ~/.android/avd
   - run:
