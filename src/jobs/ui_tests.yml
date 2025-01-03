@@ -20,13 +20,10 @@ parallelism: << parameters.parallelism >>
 steps:
   - load_workspace
   - restore_gradle_cache
-  - run:
-      name: Split ui tests
-      command: <<include(scripts/split_ui_tests.sh)>>
+  - android/accept-licenses
   - run:
       name: Define AVD name
       command: <<include(scripts/avd_define_name.sh)>>
-  - android/accept-licenses
   - run:
       name: Create AVD
       environment:
@@ -35,22 +32,28 @@ steps:
         AVD_DEVICE: pixel_3a_xl
       command: <<include(scripts/avd_create.sh)>>
   - run:
-      name: Prepare assemble ui command
-      environment:
-        BUILD_VARIANT: << parameters.build_variant >>
-      command: <<include(scripts/prepare_ui_test_assemble_command.sh)>>
-  - run:
       name: Start android emulator in background
       background: true
       environment:
         AVD_NAME: $AVD_NAME
       command: <<include(scripts/avd_start.sh)>>
   - run:
+      name: Split ui tests
+      command: <<include(scripts/split_ui_tests.sh)>>
+  - run:
+      name: Prepare assemble ui command
+      environment:
+        BUILD_VARIANT: << parameters.build_variant >>
+      command: <<include(scripts/prepare_ui_test_assemble_command.sh)>>
+  - run:
       name: Run assemble command
       command: ./gradlew $UI_ASSEMBLE_COMMAND
   - run:
       name: Wait for the emulator to start
       command: <<include(scripts/avd_wait_to_start.sh)>>
+  - run:
+      name: Disable AVD animations
+      command: <<include(scripts/avd_disable_animations.sh)>>
   - run:
       name: Run ui tests
       environment:
