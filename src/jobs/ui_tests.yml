@@ -53,7 +53,7 @@ steps:
       command: <<include(scripts/avd_wait_to_start.sh)>>
   - run:
       name: Disable AVD animations
-      command: <<include(scripts/disable_avd_animations.sh)>>
+      command: <<include(scripts/avd_disable_animations.sh)>>
   - run:
       name: Run ui tests
       environment:
